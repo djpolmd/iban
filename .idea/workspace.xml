@@ -3,10 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="19c6643a-12e4-44b6-88dc-cea3b0f51b15" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Roles.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Roles.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/RolesUsers.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/RolesUsers.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/2020_05_25_143933_create_ibans_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_05_25_143933_create_ibans_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_05_25_143948_create_roles_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_05_25_143948_create_roles_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/IbanTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/IbanTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/UsersTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/UsersTableSeeder.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +45,13 @@
         <item name="db_iban@localhost" type="feb32156:DbDataSourceImpl" />
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
         <item name="db_iban: schema" type="76f4a085:MysqlImplModel$Schema" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="db_iban@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="db_iban: schema" type="76f4a085:MysqlImplModel$Schema" />
+        <item name="iban: table" type="285a2a93:MysqlImplModel$Table" />
       </path>
       <path>
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
@@ -189,7 +196,7 @@
       <option name="presentableId" value="Default" />
       <updated>1590410409238</updated>
       <workItem from="1590410410866" duration="892000" />
-      <workItem from="1590412318925" duration="7617000" />
+      <workItem from="1590412318925" duration="9056000" />
     </task>
     <servers />
   </component>
@@ -209,9 +216,13 @@
       <screen x="0" y="0" width="1280" height="800" />
     </state>
     <state x="461" y="330" key="NewPhpFileDialog/0.0.1280.800@0.0.1280.800" timestamp="1590418437608" />
-    <state x="305" y="124" width="670" height="676" key="search.everywhere.popup" timestamp="1590418591272">
+    <state x="547" y="302" width="342" height="220" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1" timestamp="1590421552261">
       <screen x="0" y="0" width="1280" height="800" />
     </state>
-    <state x="305" y="124" width="670" height="676" key="search.everywhere.popup/0.0.1280.800@0.0.1280.800" timestamp="1590418591272" />
+    <state x="547" y="302" width="342" height="220" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1/0.0.1280.800@0.0.1280.800" timestamp="1590421552261" />
+    <state x="305" y="124" width="670" height="676" key="search.everywhere.popup" timestamp="1590421773607">
+      <screen x="0" y="0" width="1280" height="800" />
+    </state>
+    <state x="305" y="124" width="670" height="676" key="search.everywhere.popup/0.0.1280.800@0.0.1280.800" timestamp="1590421773607" />
   </component>
 </project>

@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
                     UsersTableSeeder::class,
                     IbanTableSeeder::class,
                     RolesTableSeeder::class,
-                    RoleUsersSeeder::class,
+                    RoleUsersTableSeeder::class,
          ]);
 
     }

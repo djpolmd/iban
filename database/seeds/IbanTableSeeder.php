@@ -11,7 +11,14 @@ class IbanTableSeeder extends CsvSeeder
     public function __construct()
     {
         $this->table = 'iban';
-        $this->filename = base_path().'/resource/db/.csv';
+        $this->csv_delimiter = ',';
+        $this->filename = base_path().'/resources/db/iban_2020.csv';
+        $this->mapping = [
+            0 => 'cod_eco',
+            1 => 'cod_local',
+            2 => 'cod_raion',
+            3 => 'iban',
+        ];
     }
 
     /**
