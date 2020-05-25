@@ -15,6 +15,10 @@ class CreateIbansTable extends Migration
     {
         Schema::create('ibans', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('cod_eco', 6);
+            $table->string('cod_local',4);
+            $table->string('cod_raion',2);
+            $table->string('iban',24);
             $table->timestamps();
         });
     }

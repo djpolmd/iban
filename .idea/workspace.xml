@@ -2,17 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="19c6643a-12e4-44b6-88dc-cea3b0f51b15" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/MainController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/iban.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/iban.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/factories/UserFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/UserFactory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Roles.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Roles.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/RolesUsers.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/RolesUsers.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_05_25_143933_create_ibans_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_05_25_143933_create_ibans_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_05_25_143948_create_roles_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_05_25_143948_create_roles_table.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -195,7 +189,7 @@
       <option name="presentableId" value="Default" />
       <updated>1590410409238</updated>
       <workItem from="1590410410866" duration="892000" />
-      <workItem from="1590412318925" duration="5931000" />
+      <workItem from="1590412318925" duration="7617000" />
     </task>
     <servers />
   </component>
