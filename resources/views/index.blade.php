@@ -79,11 +79,23 @@
                 </div>
             @endif
 
-            <div class="content">
-                <div class="title m-b-md">
-                    Forma  curata
-                </div>
+            @php( $local = '')
 
+            <div class="content">
+                <div class="border">
+                    Count users:
+                    {{ $users->count() }}
+                    <br>
+                   <b> Lista de utilizatori: </b>
+                    @foreach( $users as $user )
+                        ID :  {{$user->id }} <br>
+                        Nume :  &nbsp;   {{ $user->nume }} <br>
+                        Prenume : &nbsp; {{ $user->prenume }} <br>
+                        Localitatea : &nbsp;
+                        {{ $user->locality()->get('name')->pluck('name')->last() }} <br>
+
+                    @endforeach
+                </div>
             </div>
         </div>
     </body>

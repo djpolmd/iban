@@ -2,11 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="19c6643a-12e4-44b6-88dc-cea3b0f51b15" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/EcoCod.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Locality.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_05_25_174005_create_localities_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_05_25_175509_create_eco_cod_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/seeds/EcoCodTableSeeder.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/seeds/LocalTableSeeder.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/db/eco_ca.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/db/iban_locality.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_05_25_143933_create_ibans_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_05_25_143933_create_ibans_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/MainController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/MainController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/RolesUsers.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/RolesUsers.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_05_25_144008_create_roles_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_05_25_144008_create_roles_users_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/seeds/IbanTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/IbanTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/RoleUsersTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/RoleUsersTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/RolesTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/RolesTableSeeder.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/seeds/UsersTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/UsersTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/index.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,14 +66,7 @@
         <item name="db_iban@localhost" type="feb32156:DbDataSourceImpl" />
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
         <item name="db_iban: schema" type="76f4a085:MysqlImplModel$Schema" />
-        <item name="iban: table" type="285a2a93:MysqlImplModel$Table" />
-      </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="db_iban@localhost" type="feb32156:DbDataSourceImpl" />
-        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="db_iban: schema" type="76f4a085:MysqlImplModel$Schema" />
-        <item name="users: table" type="285a2a93:MysqlImplModel$Table" />
+        <item name="roles: table" type="285a2a93:MysqlImplModel$Table" />
       </path>
     </expand>
     <select />
@@ -171,11 +179,12 @@
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/Http/Controllers" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/database/seeds" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/database/seeds" />
       <recent name="$PROJECT_DIR$/app/Http/Controllers" />
     </key>
   </component>
@@ -196,7 +205,7 @@
       <option name="presentableId" value="Default" />
       <updated>1590410409238</updated>
       <workItem from="1590410410866" duration="892000" />
-      <workItem from="1590412318925" duration="9056000" />
+      <workItem from="1590412318925" duration="29436000" />
     </task>
     <servers />
   </component>
@@ -208,6 +217,10 @@
       <screen x="0" y="23" width="1280" height="709" />
     </state>
     <state x="240" y="43" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.1280.709@0.23.1280.709" timestamp="1590414664131" />
+    <state x="357" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1590430560447">
+      <screen x="0" y="0" width="1280" height="800" />
+    </state>
+    <state x="357" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1280.800@0.0.1280.800" timestamp="1590430560447" />
     <state x="378" y="162" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1590417802942">
       <screen x="0" y="0" width="1280" height="800" />
     </state>
@@ -220,9 +233,9 @@
       <screen x="0" y="0" width="1280" height="800" />
     </state>
     <state x="547" y="302" width="342" height="220" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1/0.0.1280.800@0.0.1280.800" timestamp="1590421552261" />
-    <state x="305" y="124" width="670" height="676" key="search.everywhere.popup" timestamp="1590421773607">
+    <state x="305" y="124" width="670" height="676" key="search.everywhere.popup" timestamp="1590433474504">
       <screen x="0" y="0" width="1280" height="800" />
     </state>
-    <state x="305" y="124" width="670" height="676" key="search.everywhere.popup/0.0.1280.800@0.0.1280.800" timestamp="1590421773607" />
+    <state x="305" y="124" width="670" height="676" key="search.everywhere.popup/0.0.1280.800@0.0.1280.800" timestamp="1590433474504" />
   </component>
 </project>

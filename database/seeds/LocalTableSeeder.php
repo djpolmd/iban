@@ -2,21 +2,21 @@
 
 use Flynsarmy\CsvSeeder\CsvSeeder;
 
-class IbanTableSeeder extends CsvSeeder
+class LocalTableSeeder extends CsvSeeder
 {
     /**
      * IbanTableSeeder constructor.
      */
     public function __construct()
     {
-        $this->table = 'iban';
+        $this->table = 'localities';
         $this->csv_delimiter = ',';
-        $this->filename = base_path().'/resources/db/iban_2020.csv';
+        $this->filename = base_path().'/resources/db/iban_locality.csv';
         $this->mapping = [
-            0 => 'cod_eco',
-            1 => 'cod_local',
-            2 => 'cod_raion',
-            3 => 'iban',
+            0 => 'cod1',
+            1 => 'cod2',
+            2 => 'cod3',
+            3 => 'name',
         ];
     }
 

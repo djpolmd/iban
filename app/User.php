@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'nume', 'prenume', 'email', 'password',
+        'nume', 'prenume', 'locality', 'email', 'password',
     ];
 
     /**
@@ -36,4 +36,21 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function locality()
+    {
+       return $this->belongsTo('App\Locality');
+    }
+
+    /**
+     * @param $value
+     * @return string
+     */
+    public function getLocalityAttribute()
+    {
+        return "{$this->locality}";
+    }
 }

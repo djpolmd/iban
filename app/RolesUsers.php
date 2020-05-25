@@ -22,4 +22,11 @@ class RolesUsers extends Model
    protected $casts = [
     'updated_at' => 'datatime',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+   public function getUser(){
+       return $this->belongsTo('App\User');
+   }
 }

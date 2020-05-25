@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRolesUsersTable extends Migration
+class CreateEcoCodTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateRolesUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('role_users', function (Blueprint $table) {
+        Schema::create('eco_cod', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->Integer( 'user_id',false);
-            $table->Integer('role_id',false);
-            $table->Integer('updated_by',false);
+            $table->string('cod',6);
+            $table->string('name');
         });
     }
 
@@ -28,6 +27,6 @@ class CreateRolesUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('roles_users');
+        Schema::dropIfExists('eco_cod');
     }
 }
