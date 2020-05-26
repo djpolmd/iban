@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class RolesUsers extends Model
+class RoleUsers extends Model
 {
     /**
      * @var array

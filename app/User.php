@@ -46,6 +46,14 @@ class User extends Authenticatable
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function RolesUsers()
+    {
+        return $this->belongsTo('App\RoleUsers');
+    }
+
+    /**
      * @param $value
      * @return string
      */

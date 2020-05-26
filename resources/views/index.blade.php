@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>IBAN Generator</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -25,13 +25,8 @@
             }
 
             .flex-center {
-                align-items: center;
                 display: flex;
                 justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
             }
 
             .top-right {
@@ -46,16 +41,6 @@
 
             .title {
                 font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
             }
 
             .m-b-md {
@@ -82,19 +67,31 @@
             @php( $local = '')
 
             <div class="content">
-                <div class="border">
+                <div class="container-fluid">
                     Count users:
                     {{ $users->count() }}
                     <br>
                    <b> Lista de utilizatori: </b>
-                    @foreach( $users as $user )
-                        ID :  {{$user->id }} <br>
-                        Nume :  &nbsp;   {{ $user->nume }} <br>
-                        Prenume : &nbsp; {{ $user->prenume }} <br>
-                        Localitatea : &nbsp;
-                        {{ $user->locality()->get('name')->pluck('name')->last() }} <br>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope=""> ID :</th>
+                            <th scope="col">Nume :</th>
+                            <th scope="col">Prenume :</th>
+                            <th scope="col">Localitatea :</th>
+                        </tr>
+                        </thead>
+                    <tbody>
 
+                    @foreach( $users as $user )
+                        <tr>
+                            <th scope="row">{{$user->id }}</th>
+                            <td> {{ $user->nume }} </td>
+                            <td> {{ $user->prenume }} </td>
+                            <td> {{ $user->locality()->get('name')->pluck('name')->last() }} </td>
                     @endforeach
+                    </tbody>
+                    </table>
                 </div>
             </div>
         </div>
