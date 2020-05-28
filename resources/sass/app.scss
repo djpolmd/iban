@@ -6,3 +6,66 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+//  Url must be succeeded by .. content: url('../images/img.jpg');
+.csv_image {
+    background:  url('../images/csv.png');
+    height: 42px;
+    width: 38px;
+    display: inline-block;
+    margin: -10px -25px 0 0;
+    float: right;
+    cursor: pointer;
+}
+
+button.submit {
+    color: #fff;
+    font-size: 16px;
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+    padding: 11px 25px;
+    background-color: #1a4d9a;
+    display: inline-block;
+    vertical-align: middle;
+    border: 1px solid #003580;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.7);
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -ms-border-radius: 2px;
+    -o-border-radius: 2px;
+    width: 310px;
+}
+
+.select2 {
+    background-color: #f7f7f7;
+    border: 1px solid #0087f3;
+    border-radius: 4px;
+    outline: 0;
+    background-image: -webkit-linear-gradient(top, white 50%, #eeeeee 100%);
+    background-image: -o-linear-gradient(top, white 50%, #eeeeee 100%);
+    background-image: linear-gradient(to bottom, white 50%, #eeeeee 100%);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFFFF', endColorstr='#FFEEEEEE', GradientType=0);
+}
+
+.iban_form label {
+    width: 150px;
+    margin-top: 3px;
+    display: inline-block;
+    float: left;
+    padding: 3px;
+}
+
+div.container4 {
+    height: 10em;
+    position: relative }
+div.container4 p {
+    margin: 0;
+    background: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%) }

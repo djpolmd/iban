@@ -28,7 +28,8 @@ class UsersTableSeeder extends Seeder
           ]);
 
             $role_seed  =  new RoleUsersTableSeeder();
-            $role_seed->run($i, 2,0);
+            //role_id : 2 - opeartor / 3 - operator_raion
+            $role_seed->run($i, 3,0);
         }
     }
 

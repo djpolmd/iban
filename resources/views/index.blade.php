@@ -79,6 +79,7 @@
                             <th scope="col">Nume :</th>
                             <th scope="col">Prenume :</th>
                             <th scope="col">Localitatea :</th>
+                            <th scope="col">Email :</th>
                         </tr>
                         </thead>
                     <tbody>
@@ -89,6 +90,7 @@
                             <td> {{ $user->nume }} </td>
                             <td> {{ $user->prenume }} </td>
                             <td> {{ $user->locality()->get('name')->pluck('name')->last() }} </td>
+                            <td> {{ $user->email }}</td>
                     @endforeach
                     </tbody>
                     </table>

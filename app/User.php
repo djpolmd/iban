@@ -50,15 +50,30 @@ class User extends Authenticatable
      */
     public function RolesUsers()
     {
-        return $this->belongsTo('App\RoleUsers');
+
+      return $this->hasOne('App\RoleUsers', 'user_id');
+
     }
 
     /**
-     * @param $value
-     * @return string
+     *  getUserRole = admin | operator |  @return mixed
      */
-    public function getLocalityAttribute()
+    public function getUserRole()
     {
-        return "{$this->locality}";
+        return  $this->hasOne('App\Roles', 'id')
+                     ->get('role_name')
+                     ->pluck('role_name')
+                     ->first();
     }
+    /**
+     * getUserRolePermissions   @return mixed
+     */
+    public function getUserRolePermissions()
+    {
+        return  $this->hasOne('App\Roles', 'id')
+                     ->get('role_permissions')
+                     ->pluck('role_permissions')
+                     ->first();
+    }
+
 }

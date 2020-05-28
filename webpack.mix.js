@@ -1,15 +1,9 @@
-const mix = require('laravel-mix');
+// Simplicity is the ultimate sophistication
 
-/*
- |--------------------------------------------------------------------------
- | Mix Asset Management
- |--------------------------------------------------------------------------
- |
- | Mix provides a clean, fluent API for defining some Webpack build steps
- | for your Laravel application. By default, we are compiling the Sass
- | file for the application as well as bundling up all the JS files.
- |
- */
+let mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+    // .extract(['vue'])
+    .sass('resources/sass/app.scss', 'public/css')
+    .copy('resources/db/iban_2020.csv', 'public/csv/iban_2020.csv');
+    //  .copy('node_modules/vue-multiselect/lib/vue-multiselect.min.js', 'public/js/vue-multiselect.min.js');

@@ -14,7 +14,7 @@ class EcoCodTableSeeder extends CsvSeeder
         $this->filename = base_path().'/resources/db/eco_ca.csv';
         $this->mapping = [
             0 => 'cod',
-            1 => 'nume'
+            1 => 'name'
         ];
     }
 

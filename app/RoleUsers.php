@@ -2,6 +2,7 @@
 
 namespace App;
 
+use http\Env\Request;
 use Illuminate\Database\Eloquent\Model;
 
 class RoleUsers extends Model
@@ -24,9 +25,34 @@ class RoleUsers extends Model
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-   public function getUser(){
-       return $this->belongsTo('App\User');
+   public function Roles()
+   {
+        return $this->HasOne('App\Roles', 'role_id');
    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function User()
+    {
+        return $this->HasOne('App\User', 'user_id');
+    }
+
+    public function getRoleId()
+    {
+        return $this->role_id;
+    }
+
+    public function setRoleId($value)
+    {
+        $this->role_id = $value;
+    }
+
+    public function getAttributes()
+    {
+        return $this->attributes;
+    }
+
 }
