@@ -10,6 +10,8 @@ class LocalTableSeeder extends CsvSeeder
     public function __construct()
     {
         $this->table = 'localities';
+        $this->insert_chunk_size = 20;
+        $this->offset_rows = 0;
         $this->csv_delimiter = ',';
         $this->filename = base_path().'/resources/db/iban_locality.csv';
         $this->mapping = [

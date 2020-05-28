@@ -28,31 +28,43 @@
                                 </div>
                             @endif
 
-                             @php($data = " { id: 1, name: 'Option 1' },
-                                            { id: 2, name: 'Option 2' },
-                                            { id: 3, name: 'Option 3' },
+                             @php($data = " [{ label: '2017', code: '1' },
+                                            { label: '2018', code: '2' },
+                                            { label: '2019', code: '3' },
+                                            { label: '2020', code: '4' }]
                                     " )
-
-                               <a style="display: inline; padding-left: 25px;" href="{{ mix('csv/iban_2020.csv') }}"> Descarca registru
-                                   <div class="csv_image">
-                                   </div>
-                               </a>
-
-
-                            <div class=".select2">
-                                <Dropdown
-                                    :options="[ {!! $ecocod !!} ]"
-                                    v-on:selected="validateSelection"
-                                    v-on:filter="getDropdownValues"
-                                    :disabled="false"
-                                    :maxItem="500"
-                                    placeholder="Selectați vă rog opționea">
-                                 </Dropdown>
-                            </div>
-
+                            <ul>
+{{--                          CSV IMAGE      --}}
+                                  <li class="form_li">
+                                       <a style="display: inline; padding-left: 445px;" href="{{ mix('csv/iban_2020.csv') }}"> Descarca registru
+                                           <div class="csv_image">
+                                       </div>
+                                       </a>
+                                  </li>
+{{--                             Anul   --}}
+                                    <li class="form_li">
+                                        <label for="cod_anul">Anul:</label>
+                                        <v-select  :options="{!! $data !!}"  ></v-select>
+                                    </li>
+{{--                              EcoCod  --}}
+                                <li class="form_li">
+                                    <label for="cod_eco">Codul Eco:</label>
+                                    <v-select  :options="{!! $ecocod !!}"  ></v-select>
+                                </li>
+{{--                               Raion --}}
+                                <li class="form_li">
+                                    <label>Raionul:</label>
+                                    <v-select  :options="{!! $raion !!}"  ></v-select>
+                                </li>
+{{--                                Localiatea--}}
+                                <li class="form_li">
+                                    <label for="cod_loc">Localitatea:</label>
+                                    <v-select @input="selectChange()"  :options="{!! $localitatea !!}"  ></v-select>
+                                </li>
+                            </ul>
                             </div>
                         <div class="container4">
-                            <button  style="display: inline;"  name="submit" class="submit" type="submit">
+                            <button  style="display: inline;display: block;margin-left: auto;margin-right: auto;"  name="submit" class="submit" type="submit">
                                 Afiseaza codul IBAN
                             </button>
                         </div>

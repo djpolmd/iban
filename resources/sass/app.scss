@@ -7,6 +7,10 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+// Select vue
+
+@import "vue-select/src/scss/vue-select.scss";
+
 //  Url must be succeeded by .. content: url('../images/img.jpg');
 .csv_image {
     background:  url('../images/csv.png');
@@ -16,6 +20,32 @@
     margin: -10px -25px 0 0;
     float: right;
     cursor: pointer;
+}
+
+.form_li {
+    padding: 12px 30px;
+        padding-top: 12px;
+        padding-right: 30px;
+        padding-bottom: 12px;
+        padding-left: 30px;
+    border-bottom: 1px solid #eee !important;
+        border-bottom-width: 1px !important;
+        border-bottom-style: solid !important;
+        border-bottom-color: rgb(238, 238, 238) !important;
+
+    position: relative;
+}
+
+ul {
+    list-style-type: none !important;
+}
+
+.form ul {
+    width: 700px;
+    list-style-type: none;
+    list-style-position: outside;
+    margin: 0px;
+    padding: 0px;
 }
 
 button.submit {

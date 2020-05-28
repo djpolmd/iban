@@ -21,37 +21,52 @@ class MainController extends Controller
                  ->withLocalities($localities);
    }
    //    From route IBAN
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
    public  function iban(Request $request)
    {
-       $ecocod   = EcoCod::all()->pluck('name', 'id');
-       $collection = collect([]);
-        $id = 0;
-        $a = array();
+       $EcoCodModel = EcoCod::all();
+       $LocModel = Locality::all();
 
-       foreach($ecocod as $item)
-            {
-              ++$id;
-              $collection->put( 'id :' . $id, $item)->toArray();
-              $a[] = ['id :' . $id  => $item ];
-            }
+       $id = 0;
+       $dropbox1 = (string)'';
+       $dropbox2 = (string)'';
+       $dropbox3 = (string)'';
 
-       $eco = EcoCod::all();
-       $dropbox = (string)'';
+       //Format Json output : { label: 'Canada', code: 'ca' }
 
-       foreach($eco as $obj)
+           foreach($EcoCodModel as $obj)
+           {
+               ++$id;
+               $dropbox1 = $dropbox1 . '{ label :' . $obj->getEcoCod() . ' , code : ' . "'" . $id . "'},"  ;
+           }
+         $dropbox1 = ' [ ' . $dropbox1 . ' ] ';
+//        dd($dropbox1);
+
+       foreach($LocModel as $obj)
        {
            ++$id;
-           $dropbox = $dropbox  .  '{ id :' . (string)$id
-                                .' , ' .'name :' . $obj->getEcoCod() . ' },' ;
+          if($obj->isRaion())
+              $dropbox2 = $dropbox2 . '{ label :' . $obj->getRaion() . ' , code : ' . "'" . $id . "'},"  ;
        }
+       $dropbox2 = ' [ ' . $dropbox2 . ' ] ';
 
-//       echo json_encode($dropbox, JSON_FORCE_OBJECT);
-//        echo $dropbox;
-//       $a =   $collection;
-      $coll = json_encode($a,   JSON_FORCE_OBJECT);
+       $id = 0;
 
-//      dd($coll);
+       foreach($LocModel as $obj)
+       {
+           ++$id;
+           if(!$obj->isRaion())
+               $dropbox3 = $dropbox3 . '{ label :' . $obj->getSector() . ' , code : ' . "'" . $id . "'},"  ;
+       }
+       $dropbox3 = ' [ ' . $dropbox3 . ' ] ';
 
-            return view('form')->withEcocod($dropbox);
+//        dd($dropbox2);
+       return view('form')->withEcocod($dropbox1)
+                                ->withRaion($dropbox2)
+                                ->withLocalitatea($dropbox3);
    }
 }

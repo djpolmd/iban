@@ -14,10 +14,10 @@ class EcoCod extends Model
     /**
      * @return false|string
      */
-    public function getJson()
-    {
-        return json_encode(($this->cod . ' - ' .  $this->name),JSON_FORCE_OBJECT);
-    }
+//    public function getJson()
+//    {
+//        return json_encode(($this->cod . ' - ' .  $this->name),JSON_FORCE_OBJECT);
+//    }
 
     /**
      * @return false|string

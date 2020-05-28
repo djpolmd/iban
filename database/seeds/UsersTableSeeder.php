@@ -24,7 +24,8 @@ class UsersTableSeeder extends Seeder
               'prenume'  =>  $faker->lastName,
               'locality_id' =>  $locality_id,
               'email'    =>  $faker->email,
-              'password' => bcrypt('password')
+              'password' => bcrypt('password'),
+              'api_token' => Str::random(60),
           ]);
 
             $role_seed  =  new RoleUsersTableSeeder();
