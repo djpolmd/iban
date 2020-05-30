@@ -44,7 +44,7 @@ class MainController extends Controller
                $dropbox1 = $dropbox1 . '{ label :' . $obj->getEcoCod() . ' , code : ' . "'" . $id . "'},"  ;
            }
          $dropbox1 = ' [ ' . $dropbox1 . ' ] ';
-//        dd($dropbox1);
+//       dd($dropbox1);
 
        foreach($LocModel as $obj)
        {

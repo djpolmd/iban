@@ -49,17 +49,32 @@
 {{--                              EcoCod  --}}
                                 <li class="form_li">
                                     <label for="cod_eco">Codul Eco:</label>
-                                    <v-select  :options="{!! $ecocod !!}"  ></v-select>
+                                    <v-select
+                                        :options="{!! $ecocod !!}"
+                                    ></v-select>
                                 </li>
 {{--                               Raion --}}
                                 <li class="form_li">
                                     <label>Raionul:</label>
-                                    <v-select  :options="{!! $raion !!}"  ></v-select>
+                                    <v-select
+                                        :options="{!! $raion !!}"
+                                    ></v-select>
                                 </li>
 {{--                                Localiatea--}}
                                 <li class="form_li">
                                     <label for="cod_loc">Localitatea:</label>
-                                    <v-select @input="selectChange()"  :options="{!! $localitatea !!}"  ></v-select>
+
+                                    <v-select
+                                        :on-search="getOptions"
+                                        :options="{!! $localitatea !!}"
+                                        v-model="selected"
+                                    ></v-select>
+
+                                    <br>
+                                    <select v-model="checkedRaion">
+                                        <option>Item1 </option>
+                                        <option>Item2 </option>
+                                    </select>
                                 </li>
                             </ul>
                             </div>
@@ -73,3 +88,4 @@
     </div>
 </div>
 @endsection
+

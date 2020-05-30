@@ -3,28 +3,37 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-// import  DropDown  from './components/DropDown.vue';
-Vue.component('v-select', vSelect)
+// Vue.component('v-select', require('vue-select'));
+// import vSelect  from './components/vSelect.vue';
+Vue.component('v-select', vSelect);
 
-import Dropdown from 'vue-simple-search-dropdown';
+import axios from "axios"
+// import vSelect from 'vue-select'
+
+// import StButton from "./components/Stbutton";
 import vSelect from 'vue-select';
 
 const app = new Vue({
-    el: '#app',
+    el: '#iban',
 
+    data:
+        {
+            selected : [],
+            checkedRaion : [],
+        },
     components: {
-        Dropdown,
         vSelect,
     },
 
     methods: {
-
-        selectChange: function () {
-            console.log(this.selectedProduct);
-            //do futher processing
-
-        },
+        getOptions(search, loading) {
+            loading(true)
+            axios.get('/api/raion/1')
+                .then(response => {
+                    this.options = response.data.items
+                    loading(false)
+                });
+        }
     }
 
 });

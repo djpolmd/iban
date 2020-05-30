@@ -11,7 +11,6 @@ class RoleUsersTableSeeder extends Seeder
      */
     public function run($user_id, $role_id, $updated_by)
     {
-
         $role = DB::table('role_users');
 
         $role->insert([

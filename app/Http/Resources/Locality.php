@@ -15,7 +15,7 @@ class Locality extends JsonResource
     public function toArray($request)
     {
         return [
-                'cod3' => $this->cod3,
+                'id' => $this->cod3,
                 'name' => $this->name,
         ];
     }

@@ -30,12 +30,21 @@ class ApiTokenController extends Controller
      * @param Request $request
      * @param $id
      * @return mixed
+     *  (raion)  Intoarce toate localitatile dintrun Raion dupa id raion.
      */
     public function raion(Request $request, $id)
     {
         $loc = Locality::where('id', '=' , $id)->get();
 
-        return  LocalityResource::collection($loc);
+        if (!$loc->first()->isRaion()) return 'Nu e raion';
+            else {
+                $next =  Locality::where('id', '>' , $id)->get();
+                    foreach ($next as $item)
+                    {
+                        if($item->isRaion())
+                            $next  =  $next->where('id','<', $item->id);
+                    }
+            }
+        return  LocalityResource::collection($next);
     }
-
 }
