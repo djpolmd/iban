@@ -32,5 +32,9 @@ Route::get('/raion', function () {
              return  LocalityResource::collection(Locality::all());
 });
 
-Route::get('/raion/{id}', 'ApiTokenController@raion');
+Route::get('/locality/{id}', 'ApiTokenController@locality');
+Route::get('/raion', 'ApiTokenController@raion');
+Route::get('/ecocod', 'ApiTokenController@ecocod');
+Route::get('/iban/{ecocod}/{raion}/{locality}', 'ApiTokenController@iban');
+
 

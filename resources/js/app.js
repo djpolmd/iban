@@ -32,7 +32,7 @@ const app = new Vue({
     methods: {
         getOptions(search, loading) {
             loading(true)
-            axios.get('http://iban.test/api/raion/40')
+            axios.get('http://iban.test/api/locality/40')
                 .then(response => {
                     this.options = response.data.items
                     loading(false)
@@ -41,11 +41,13 @@ const app = new Vue({
     },
 
     mounted () {
-        axios.get('http://iban.test/api/raion/41')
+        axios.get('http://iban.test/api/locality/41')
             .then(r => {
                     // var formatted = []
+                    this.selectedLocality = r.data[0];
                     for (let i = 0; i < r.data.length; i++) {
-                        this.dbOptions.push(r.data[i])
+                        this.dbOptions.push(r.data[i]);
+
                          // formatted[i] = { value: r.data[i].id, text: r.data[i].name }
                     }
                 },

@@ -49529,7 +49529,7 @@ var app = new Vue({
       var _this = this;
 
       loading(true);
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('http://iban.test/api/raion/40').then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('http://iban.test/api/locality/40').then(function (response) {
         _this.options = response.data.items;
         loading(false);
       });
@@ -49538,8 +49538,10 @@ var app = new Vue({
   mounted: function mounted() {
     var _this2 = this;
 
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('http://iban.test/api/raion/41').then(function (r) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('http://iban.test/api/locality/41').then(function (r) {
       // var formatted = []
+      _this2.selectedLocality = r.data[0];
+
       for (var i = 0; i < r.data.length; i++) {
         _this2.dbOptions.push(r.data[i]); // formatted[i] = { value: r.data[i].id, text: r.data[i].name }
 

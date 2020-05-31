@@ -13,7 +13,7 @@ class CreateIbansTable extends Migration
      */
     public function up()
     {
-        Schema::create('iban', function (Blueprint $table) {
+        Schema::create('ibans', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('cod_eco', 6);
             $table->string('cod_local',4);

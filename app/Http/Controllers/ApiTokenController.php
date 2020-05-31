@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Raion as RaionResource;
+use App\Http\Resources\Iban as IbanResource;
+use App\Iban;
 use App\Locality;
 use App\Http\Resources\Locality  as LocalityResource;
 use Illuminate\Support\Str;
@@ -32,7 +35,7 @@ class ApiTokenController extends Controller
      * @return mixed
      *  (raion)  Intoarce toate localitatile dintrun Raion dupa id raion.
      */
-    public function raion(Request $request, $id)
+    public function locality(Request $request, $id)
     {
         $loc = Locality::where('id', '=' , $id)->get();
 
@@ -48,5 +51,32 @@ class ApiTokenController extends Controller
         return  LocalityResource::collection($next);
     }
 
-    public function
+    public function raion(Request $request)
+    {
+        $loc = Locality::all();
+        $collect = collect([]);
+        foreach ($loc as $item)
+        {
+            if($item->isRaion() )
+                $collect->put($item->getRaion(),$item->id);
+        }
+
+        return RaionResource::collection($collect);
+    }
+
+    public function iban(Request $request, $codeco, $raion, $locality)
+    {
+        // exeemple of URL :  http://iban.test/api/iban/114417/50/1212
+
+        $iban =  Iban::where([
+            'cod_eco' => $codeco,
+            'cod_raion' => $raion,
+            'cod_local' => $locality
+        ])->get();
+
+        if ($iban->first() === null)
+            return response('Nu a fost gasit un IBAN valid : ' . $codeco . $raion . $locality ,200)
+                    ->header('Content-Type', 'text/plain');
+        return  IbanResource::collection($iban) ;
+    }
 }

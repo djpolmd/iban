@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class Raion extends JsonResource
+class iban extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,8 +15,7 @@ class Raion extends JsonResource
     public function toArray($request)
     {
         return [
-                'cod3' => $this->cod3,
-                'name' => $this->name,
-                ];
+            'iban' => $this->iban
+        ];
     }
 }
