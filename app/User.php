@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'nume', 'prenume', 'locality', 'email', 'password', 'api_token',
     ];
 
     /**
@@ -25,7 +25,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token','api_token'
     ];
 
     /**
@@ -36,4 +36,44 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function locality()
+    {
+       return $this->belongsTo('App\Locality');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function RolesUsers()
+    {
+
+      return $this->hasOne('App\RoleUsers', 'user_id');
+
+    }
+
+    /**
+     *  getUserRole = admin | operator |  @return mixed
+     */
+    public function getUserRole()
+    {
+        return  $this->hasOne('App\Roles', 'id')
+                     ->get('role_name')
+                     ->pluck('role_name')
+                     ->first();
+    }
+    /**
+     * getUserRolePermissions   @return mixed
+     */
+    public function getUserRolePermissions()
+    {
+        return  $this->hasOne('App\Roles', 'id')
+                     ->get('role_permissions')
+                     ->pluck('role_permissions')
+                     ->first();
+    }
+
 }
