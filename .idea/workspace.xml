@@ -2,18 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="19c6643a-12e4-44b6-88dc-cea3b0f51b15" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/js/components/Stbutton.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/vSelect.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ApiTokenController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ApiTokenController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/MainController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/MainController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Resources/Locality.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/Locality.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/RoleUsersTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/RoleUsersTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Resources/Raion.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Resources/Raion.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/vSelect.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/vSelect.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/form.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -201,7 +195,7 @@
       <option name="presentableId" value="Default" />
       <updated>1590410409238</updated>
       <workItem from="1590410410866" duration="892000" />
-      <workItem from="1590412318925" duration="134535000" />
+      <workItem from="1590412318925" duration="140763000" />
     </task>
     <servers />
   </component>
@@ -245,10 +239,10 @@
       <screen x="0" y="0" width="1280" height="800" />
     </state>
     <state x="306" y="157" width="667" height="486" key="find.popup/0.0.1280.800@0.0.1280.800" timestamp="1590866250997" />
-    <state x="305" y="124" width="670" height="676" key="search.everywhere.popup" timestamp="1590746362928">
+    <state x="305" y="124" width="670" height="676" key="search.everywhere.popup" timestamp="1590889887897">
       <screen x="0" y="0" width="1280" height="800" />
     </state>
-    <state x="305" y="124" width="670" height="676" key="search.everywhere.popup/0.0.1280.800@0.0.1280.800" timestamp="1590746362928" />
+    <state x="305" y="124" width="670" height="676" key="search.everywhere.popup/0.0.1280.800@0.0.1280.800" timestamp="1590889887897" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

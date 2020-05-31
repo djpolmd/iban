@@ -56,25 +56,26 @@
 {{--                               Raion --}}
                                 <li class="form_li">
                                     <label>Raionul:</label>
-                                    <v-select
+                                    <v-select v-model="selectedRaion"
                                         :options="{!! $raion !!}"
-                                    ></v-select>
+                                        v-bind:value="selectedRaion"
+                                    >
+
+                                    </v-select>
+                                   v-Model selectedRaion : @{{ selectedRaion }}
                                 </li>
 {{--                                Localiatea--}}
                                 <li class="form_li">
                                     <label for="cod_loc">Localitatea:</label>
 
-                                    <v-select
+                                    <v-select label="name"  v-model="selectedLocality"
                                         :on-search="getOptions"
-                                        :options="{!! $localitatea !!}"
-                                        v-model="selected"
-                                    ></v-select>
-
+                                        :options="dbOptions"
+                                    >
+                                    </v-select>
+                                    @{{ selectedLocality }}
                                     <br>
-                                    <select v-model="checkedRaion">
-                                        <option>Item1 </option>
-                                        <option>Item2 </option>
-                                    </select>
+
                                 </li>
                             </ul>
                             </div>

@@ -18,8 +18,12 @@ const app = new Vue({
 
     data:
         {
-            selected : [],
+            selectedRaion : [],
+            selectedLocality : [],
             checkedRaion : [],
+            dbOptions : [],
+            urlLocallity : [],
+
         },
     components: {
         vSelect,
@@ -28,12 +32,27 @@ const app = new Vue({
     methods: {
         getOptions(search, loading) {
             loading(true)
-            axios.get('/api/raion/1')
+            axios.get('http://iban.test/api/raion/40')
                 .then(response => {
                     this.options = response.data.items
                     loading(false)
                 });
         }
+    },
+
+    mounted () {
+        axios.get('http://iban.test/api/raion/41')
+            .then(r => {
+                    // var formatted = []
+                    for (let i = 0; i < r.data.length; i++) {
+                        this.dbOptions.push(r.data[i])
+                         // formatted[i] = { value: r.data[i].id, text: r.data[i].name }
+                    }
+                },
+                error => {
+                    console.error(error)
+                }
+            )
     }
 
 });

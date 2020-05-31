@@ -49515,8 +49515,11 @@ Vue.component('v-select', vue_select__WEBPACK_IMPORTED_MODULE_1___default.a);
 var app = new Vue({
   el: '#iban',
   data: {
-    selected: [],
-    checkedRaion: []
+    selectedRaion: [],
+    selectedLocality: [],
+    checkedRaion: [],
+    dbOptions: [],
+    urlLocallity: []
   },
   components: {
     vSelect: vue_select__WEBPACK_IMPORTED_MODULE_1___default.a
@@ -49526,11 +49529,24 @@ var app = new Vue({
       var _this = this;
 
       loading(true);
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/raion/1').then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('http://iban.test/api/raion/40').then(function (response) {
         _this.options = response.data.items;
         loading(false);
       });
     }
+  },
+  mounted: function mounted() {
+    var _this2 = this;
+
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('http://iban.test/api/raion/41').then(function (r) {
+      // var formatted = []
+      for (var i = 0; i < r.data.length; i++) {
+        _this2.dbOptions.push(r.data[i]); // formatted[i] = { value: r.data[i].id, text: r.data[i].name }
+
+      }
+    }, function (error) {
+      console.error(error);
+    });
   }
 });
 

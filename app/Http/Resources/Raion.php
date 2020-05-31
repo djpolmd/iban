@@ -16,7 +16,7 @@ class Raion extends JsonResource
     {
         return [
                 'cod3' => $this->cod3,
-                'name' => $this->name,
+                'name' => $this->cod3 . ' - ' . $this->name,
                 ];
     }
 }

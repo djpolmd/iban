@@ -47,4 +47,6 @@ class ApiTokenController extends Controller
             }
         return  LocalityResource::collection($next);
     }
+
+    public function
 }
