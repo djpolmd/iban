@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\EcoCod;
+use App\Http\Resources\Ecocod as EcocodResource;
 use App\Http\Resources\Raion as RaionResource;
 use App\Http\Resources\Iban as IbanResource;
 use App\Iban;
@@ -51,32 +53,40 @@ class ApiTokenController extends Controller
         return  LocalityResource::collection($next);
     }
 
-    public function raion(Request $request)
+    public function raion()
     {
         $loc = Locality::all();
+
         $collect = collect([]);
         foreach ($loc as $item)
         {
-            if($item->isRaion() )
-                $collect->put($item->getRaion(),$item->id);
+            if($item->isRaion() ) {
+                $collect->push($item);
+            }
         }
 
+//        dd($collect);
         return RaionResource::collection($collect);
     }
 
     public function iban(Request $request, $codeco, $raion, $locality)
     {
-        // exeemple of URL :  http://iban.test/api/iban/114417/50/1212
+            // exeemple of URL :   /api/iban/ 114417/ 1212
 
         $iban =  Iban::where([
             'cod_eco' => $codeco,
-            'cod_raion' => $raion,
+//            'id'      => $raion,
             'cod_local' => $locality
         ])->get();
 
         if ($iban->first() === null)
             return response('Nu a fost gasit un IBAN valid : ' . $codeco . $raion . $locality ,200)
-                    ->header('Content-Type', 'text/plain');
-        return  IbanResource::collection($iban) ;
+                            ->header('Content-Type', 'text/plain');
+        return  IbanResource::collection($iban);
+    }
+
+    public function ecocod()
+    {
+       return  EcocodResource::collection(EcoCod::all());
     }
 }

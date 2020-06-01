@@ -49,20 +49,27 @@
 {{--                              EcoCod  --}}
                                 <li class="form_li">
                                     <label for="cod_eco">Codul Eco:</label>
-                                    <v-select
-                                        :options="{!! $ecocod !!}"
+                                    <v-select v-model="selectedEcocod"
+                                        :options="optionsEcocod"
+
+                                        label="name"
                                     ></v-select>
+                                   selectedRaion : @{{ getIdEcocod()  }}
+
                                 </li>
 {{--                               Raion --}}
                                 <li class="form_li">
                                     <label>Raionul:</label>
-                                    <v-select v-model="selectedRaion"
-                                        :options="{!! $raion !!}"
+                                    <v-select
+                                        v-on:input="getOptions()"
+                                        v-model="selectedRaion"
+                                        :options="raionOptions"
                                         v-bind:value="selectedRaion"
+                                        label="name"
                                     >
 
                                     </v-select>
-                                   v-Model selectedRaion : @{{ selectedRaion }}
+                                   v-Model selectedRaion : @{{ getIdRaion() }}
                                 </li>
 {{--                                Localiatea--}}
                                 <li class="form_li">
@@ -70,20 +77,29 @@
 
                                     <v-select label="name"  v-model="selectedLocality"
                                         :on-search="getOptions"
-                                        :options="dbOptions"
+                                        :options="localityOptions"
                                     >
                                     </v-select>
-                                    @{{ selectedLocality }}
+                                     localityOptions : @{{ getIdLocality() }}
                                     <br>
 
                                 </li>
-                            </ul>
-                            </div>
+
                         <div class="container4">
-                            <button  style="display: inline;display: block;margin-left: auto;margin-right: auto;"  name="submit" class="submit" type="submit">
+                             <button v-on:click="getIban" style="display: inline;display: block;margin-left: auto;margin-right: auto;"
+                                     name="submit"
+                                     class="submit"
+                                     type="submit">
                                 Afiseaza codul IBAN
                             </button>
+
                         </div>
+                           <li class="form_li">
+                               <input v-model="IbanOptions">
+                           </li>
+                        </ul>
+                        </div>
+
                     </div>
         </div>
     </div>

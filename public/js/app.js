@@ -49504,47 +49504,85 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_select__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_select__WEBPACK_IMPORTED_MODULE_1__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
-window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js"); // Vue.component('v-select', require('vue-select'));
-// import vSelect  from './components/vSelect.vue';
-
+window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 Vue.component('v-select', vue_select__WEBPACK_IMPORTED_MODULE_1___default.a);
- // import vSelect from 'vue-select'
-// import StButton from "./components/Stbutton";
 
 
 var app = new Vue({
   el: '#iban',
   data: {
     selectedRaion: [],
+    // binded v-model for selected Raion
     selectedLocality: [],
-    checkedRaion: [],
-    dbOptions: [],
-    urlLocallity: []
+    // binded v-model for selected Locality
+    selectedEcocod: [],
+    // binded v-model for Economic cod
+    optionsEcocod: [],
+    raionOptions: [],
+    localityOptions: [],
+    IbanOptions: []
   },
   components: {
     vSelect: vue_select__WEBPACK_IMPORTED_MODULE_1___default.a
   },
   methods: {
-    getOptions: function getOptions(search, loading) {
+    getOptions: function getOptions() {
       var _this = this;
 
-      loading(true);
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('http://iban.test/api/locality/40').then(function (response) {
-        _this.options = response.data.items;
-        loading(false);
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/locality/' + this.getIdRaion()).then(function (response) {
+        _this.selectedLocality = response.data[0];
+
+        for (var i = 0; i < r.data.length; i++) {
+          _this.localityOptions.push(response.data[i]);
+        }
       });
+    },
+    getIban: function getIban() {
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/locality/' + this.selectedEcocod.id + '/' + this.selectedRaion.id + '/' + this.selectedLocality.id + '/').then(function (response) {
+        _this2.options = response.data.items;
+        l;
+      });
+    },
+    //  Getters for ID
+    getIdEcocod: function getIdEcocod() {
+      return this.selectedEcocod.id;
+    },
+    getIdRaion: function getIdRaion() {
+      return this.selectedRaion.id;
+    },
+    getIdLocality: function getIdLocality() {
+      return this.selectedLocality.id;
     }
   },
   mounted: function mounted() {
-    var _this2 = this;
+    var _this3 = this;
 
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('http://iban.test/api/locality/41').then(function (r) {
-      // var formatted = []
-      _this2.selectedLocality = r.data[0];
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/raion').then(function (r) {
+      _this3.selectedRaion = r.data[0];
 
       for (var i = 0; i < r.data.length; i++) {
-        _this2.dbOptions.push(r.data[i]); // formatted[i] = { value: r.data[i].id, text: r.data[i].name }
+        _this3.raionOptions.push(r.data[i]);
+      }
+    }, function (error) {
+      console.error(error);
+    }), //  get data for "selectedLocality" model
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/locality/1').then(function (r) {
+      // var formatted = []
+      _this3.selectedLocality = r.data[0];
 
+      for (var i = 0; i < r.data.length; i++) {
+        _this3.localityOptions.push(r.data[i]); // formatted[i] = { value: r.data[i].id, text: r.data[i].name }
+
+      }
+    }, function (error) {
+      console.error(error);
+    }), axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/ecocod').then(function (r) {
+      _this3.selectedEcocod = r.data[0];
+
+      for (var i = 0; i < r.data.length; i++) {
+        _this3.optionsEcocod.push(r.data[i]);
       }
     }, function (error) {
       console.error(error);
