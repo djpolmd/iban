@@ -20,39 +20,45 @@ class RoleUsers extends Model
     /**
      * @var array
      */
-   protected $casts = [
+    protected $casts = [
     'updated_at' => 'datatime',
     ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-   public function Roles()
-   {
-        return $this->HasOne('App\Roles', 'role_id');
-   }
-
+//    public function Roles()
+//   {
+//        return $this->HasOne('App\Roles', 'id');
+//   }
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function User()
-    {
-        return $this->HasOne('App\User', 'user_id');
-    }
-
+//    public function User()
+//    {
+//        return $this->BelongTo('App\User', 'user_id');
+//    }
+    /**
+     * @return mixed
+     */
     public function getRoleId()
     {
         return $this->role_id;
     }
 
+    /**
+     * @param $value
+     */
     public function setRoleId($value)
     {
         $this->role_id = $value;
     }
 
+    /**
+     * @return array
+     */
     public function getAttributes()
     {
         return $this->attributes;
     }
-
 }

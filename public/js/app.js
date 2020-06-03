@@ -49520,7 +49520,9 @@ var app = new Vue({
     optionsEcocod: [],
     raionOptions: [],
     localityOptions: [],
-    IbanOptions: []
+    IbanOptions: [],
+    ifVisible: false,
+    alertBox: false
   },
   components: {
     vSelect: vue_select__WEBPACK_IMPORTED_MODULE_1___default.a
@@ -49529,20 +49531,32 @@ var app = new Vue({
     getOptions: function getOptions() {
       var _this = this;
 
+      this.ifVisible = true;
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/locality/' + this.getIdRaion()).then(function (response) {
         _this.selectedLocality = response.data[0];
 
         for (var i = 0; i < r.data.length; i++) {
           _this.localityOptions.push(response.data[i]);
         }
+      }, function (error) {
+        console.error(error);
+        _this.alertBox = true;
       });
+    },
+    checkIban: function checkIban() {
+      if (this.IbanOptions) this.ifVisible = true;
     },
     getIban: function getIban() {
       var _this2 = this;
 
+      this.ifVisible = true;
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/locality/' + this.selectedEcocod.id + '/' + this.selectedRaion.id + '/' + this.selectedLocality.id + '/').then(function (response) {
         _this2.options = response.data.items;
-        l;
+
+        (function (error) {
+          console.error(error);
+          _this2.alertBox = true;
+        });
       });
     },
     //  Getters for ID

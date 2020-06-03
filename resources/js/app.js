@@ -14,13 +14,15 @@ const app = new Vue({
 
     data:
         {
-            selectedRaion :   [], // binded v-model for selected Raion
-            selectedLocality :[], // binded v-model for selected Locality
+            selectedRaion :   [],   // binded v-model for selected Raion
+            selectedLocality :[],   // binded v-model for selected Locality
             selectedEcocod :  [],   // binded v-model for Economic cod
             optionsEcocod :   [],
             raionOptions :    [],
             localityOptions : [],
             IbanOptions :     [],
+            ifVisible : false,
+            alertBox : false,
         },
     components: {
         vSelect,
@@ -28,25 +30,42 @@ const app = new Vue({
 
     methods: {
         getOptions() {
+            this.ifVisible = true;
             axios.get('/api/locality/'+this.getIdRaion())
                 .then(response => {
                     this.selectedLocality = response.data[0];
                     for (let i = 0; i < r.data.length; i++) {
                         this.localityOptions.push(response.data[i]);
                     }
-                });
+                },
+
+                error => {
+                    console.error(error)
+                     this.alertBox = true;
+                 }
+            )},
+
+        checkIban(){
+          if(this.IbanOptions)  this.ifVisible = true;
         },
 
         getIban() {
+            this.ifVisible = true;
+
             axios.get('/api/locality/' +
                 this.selectedEcocod.id +'/'+
                 this.selectedRaion.id +'/' +
                 this.selectedLocality.id +'/'
              )
                 .then(response => {
-                    this.options = response.data.items
-                    l
-                });
+                    this.options = response.data.items;
+                error => {
+                    console.error(error)
+                    this.alertBox = true;
+                    }
+            });
+
+
         },
         //  Getters for ID
         getIdEcocod(){

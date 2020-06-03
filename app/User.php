@@ -9,7 +9,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use Notifiable;
-
     /**
      * The attributes that are mass assignable.
      *
@@ -18,7 +17,6 @@ class User extends Authenticatable
     protected $fillable = [
         'nume', 'prenume', 'locality', 'email', 'password', 'api_token',
     ];
-
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -27,7 +25,6 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token','api_token'
     ];
-
     /**
      * The attributes that should be cast to native types.
      *
@@ -36,7 +33,6 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -44,36 +40,47 @@ class User extends Authenticatable
     {
        return $this->belongsTo('App\Locality');
     }
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function RolesUsers()
     {
-
-      return $this->hasOne('App\RoleUsers', 'user_id');
-
+      return $this->belongsTo('App\RoleUsers');
     }
-
     /**
      *  getUserRole = admin | operator |  @return mixed
      */
     public function getUserRole()
     {
-        return  $this->hasOne('App\Roles', 'id')
-                     ->get('role_name')
-                     ->pluck('role_name')
-                     ->first();
+        $user = RoleUsers::where('id',$this->id)->get('role_id');
+
+        if ($user)
+            return
+                Roles::where('id', '=', $user->pluck('role_id'))
+                           ->get('role_name')
+                           ->pluck('role_name')
+                           ->first();
+        else
+            return null;
     }
     /**
-     * getUserRolePermissions   @return mixed
+     * getUserRolePermissions  @return mixed
      */
     public function getUserRolePermissions()
     {
-        return  $this->hasOne('App\Roles', 'id')
-                     ->get('role_permissions')
-                     ->pluck('role_permissions')
-                     ->first();
+        $user = RoleUsers::where('id',$this->id)->get('role_id');
+        return  Roles::where('id', $user->pluck('role_id'))
+                        ->get('role_permissions')
+                        ->pluck('role_permissions')
+                        ->first();
+    }
+    /**
+     * @param $value
+     *   User Model @return mixed
+     */
+    public function getUserByToken($value)
+    {
+        return User::where('api_token', $value)->get();
     }
 
 }

@@ -86,7 +86,8 @@
                                 </li>
 
                         <div class="container4">
-                             <button v-on:click="getIban" style="display: inline;display: block;margin-left: auto;margin-right: auto;"
+                             <button v-on:click="getIban()" style="display: inline;display: block;margin-left: auto;margin-right: auto;"
+                              {{--  @click="checkIban()"--}}
                                      name="submit"
                                      class="submit"
                                      type="submit">
@@ -95,11 +96,19 @@
 
                         </div>
                            <li class="form_li">
-                               <input v-model="IbanOptions">
+                               <div class="vs__selected-options">
+                                {{--  <label> IBAN :  </label>  --}}
+                                    <input  v-model="IbanOptions"
+                                            v-if="ifVisible"
+                                            class="kms">
+                                   <alert-box v-if="alertBox">
+                                       Ceva nue e in regula ...
+                                   </alert-box>
+                               </div>
+
                            </li>
                         </ul>
-                        </div>
-
+                    </div>
                     </div>
         </div>
     </div>

@@ -69,13 +69,25 @@ class ApiTokenController extends Controller
         return RaionResource::collection($collect);
     }
 
-    public function iban(Request $request, $codeco, $raion, $locality)
+    public function iban(Request $request)
     {
-            // exeemple of URL :   /api/iban/ 114417/ 1212
+        // exeemple of URL : api/iban?codeco=113230&raion=5050&locality=1212
+
+        $codeco = $request->get('codeco');
+        $raion = $request->get('raion');
+        $locality = $request->get('locality');
+
+
+        if( strlen($raion) == 4){
+            $r = substr($raion, 0, 2);
+        }
+        else
+            return response('Incorect raion: ' . $codeco . $raion . $locality ,200)
+                ->header('Content-Type', 'text/plain');
 
         $iban =  Iban::where([
-            'cod_eco' => $codeco,
-//            'id'      => $raion,
+            'cod_eco' =>   $codeco,
+            'cod_raion' => $r,
             'cod_local' => $locality
         ])->get();
 
@@ -88,5 +100,28 @@ class ApiTokenController extends Controller
     public function ecocod()
     {
        return  EcocodResource::collection(EcoCod::all());
+    }
+
+    public function add_iban($iban)
+    {
+
+        return response('Iban a fost adaugat cu succes' . $iban ,200)
+                            ->header('Content-Type', 'text/plain');
+    }
+
+    public function get_iban(Request $request)
+    {
+         $token =  $request->get('token');
+
+        return response('Iban get' . $token,200)
+            ->header('Content-Type', 'text/plain');
+    }
+
+    public function get_iban_local(Request $request)
+    {
+        $token =  $request->get('token');
+
+        return response('Iban get' . $token,200)
+            ->header('Content-Type', 'text/plain');
     }
 }

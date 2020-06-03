@@ -91,6 +91,8 @@
                             <td> {{ $user->prenume }} </td>
                             <td> {{ $user->locality()->get('name')->pluck('name')->last() }} </td>
                             <td> {{ $user->email }}</td>
+                            <td> {{  $user->getUserRole() }} </td>
+                            <td> {{ $user->getUserRolePermissions() }} </td>
                     @endforeach
                     </tbody>
                     </table>

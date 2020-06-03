@@ -23,10 +23,16 @@ Made in Laravel eloquent and Json resources, on Vue form frontend with axios.
 
 ## Installing instruction:
 
--  git clone  "https://github.com/djpolmd/iban.git"
+- git clone  "https://github.com/djpolmd/iban.git"
 - 'composer install'
 - 'npm install'
 - 'cp .env.example .env' - ! ( and set you .env file to mysql credentials) 
 - 'php artisan migrate'
 - 'php db:seed'
 - 'npm run dev/prod'
+
+## CRUD - Routes for internal API:
+
+http://iban.test/api/get_iban?token={token}
+http://iban.test/api/add_iban/{IBAN}?token={token}
+

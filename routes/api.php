@@ -32,9 +32,26 @@ Route::get('/raion', function () {
              return  LocalityResource::collection(Locality::all());
 });
 
+
 Route::get('/locality/{id}', 'ApiTokenController@locality');
-Route::get('/raion', 'ApiTokenController@raion');
+Route::get('/raion',  'ApiTokenController@raion');
 Route::get('/ecocod', 'ApiTokenController@ecocod');
-Route::get('/iban/{ecocod}/{raion}/{locality}', 'ApiTokenController@iban');
+
+    //  /iban?ecocod={{}}&codlocal={{}}&raion={{}};
+
+Route::get('/iban', 'ApiTokenController@iban');
 
 
+
+
+
+Route::group(['middleware' => 'isAdmin'], function() {
+     Route::post('add_iban/{iban}', 'ApiTokenController@add_iban');
+     Route::get('/get_iban/', 'ApiTokenController@get_iban');
+});
+
+Route::group(['middleware' => 'isOperator'], function() {
+    Route::get('/get_iban/', 'ApiTokenController@get_iban_local');
+});
+
+//Route::post('add_iban/{iban}',  'ApiTokenController@add_iban' );
