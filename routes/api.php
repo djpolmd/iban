@@ -19,14 +19,8 @@ use Illuminate\Http\Request;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
-
-
 });
 
-//Route::apiResources([
-//    '/raion'    => 'ApiTokenController@raion',
-//    '/localitatea'  => 'ApiTokenController@localitatea',
-//]);
 
 Route::get('/raion', function () {
              return  LocalityResource::collection(Locality::all());
@@ -42,16 +36,15 @@ Route::get('/ecocod', 'ApiTokenController@ecocod');
 Route::get('/iban', 'ApiTokenController@iban');
 
 
-
-
-
+// DEMO for CRUD methods
 Route::group(['middleware' => 'isAdmin'], function() {
-     Route::post('add_iban/{iban}', 'ApiTokenController@add_iban');
-     Route::get('/get_iban/', 'ApiTokenController@get_iban');
+     Route::post('/add_iban', 'ApiTokenController@add_iban');
+     Route::put('put_iban/{ibab}',  'ApiTokenController@put_iban');
+     Route::get('/get_iban/{iban}', 'ApiTokenController@get_iban');
 });
 
 Route::group(['middleware' => 'isOperator'], function() {
-    Route::get('/get_iban/', 'ApiTokenController@get_iban_local');
+    Route::get('/get_iban/{iban}', 'ApiTokenController@get_iban_operator');
 });
 
-//Route::post('add_iban/{iban}',  'ApiTokenController@add_iban' );
+//Route::post('add_iban/{iban}', 'ApiTokenController@add_iban' );

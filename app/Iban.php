@@ -16,6 +16,12 @@ class Iban extends Model
         'iban',
 ];
 
-
+    /**
+     * @return false|string
+     */
+    public function getLastCharacters()
+    {
+        return substr($this->iban, 10, 14);
+    }
 
 }

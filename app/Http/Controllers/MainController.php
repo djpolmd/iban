@@ -7,6 +7,7 @@ use App\EcoCod;
 use App\Locality;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MainController extends Controller
 {
@@ -14,11 +15,11 @@ class MainController extends Controller
    {
        $users = User::all();
 
-       $localities = Locality::all();
+       $token = Auth()->user()->getToken();
 
        return view('index')
                  ->withUsers($users)
-                 ->withLocalities($localities);
+                 ->withToken($token);
    }
    //    From route IBAN
 

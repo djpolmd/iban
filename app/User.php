@@ -83,4 +83,25 @@ class User extends Authenticatable
         return User::where('api_token', $value)->get();
     }
 
+    /**
+     * @param $token
+     * @return mixed
+     */
+    public function getUserId($token){
+
+        $user =  User::first();
+
+        $user = $user->getUserByToken($token);
+
+        return $user->pluck('id')->last();
+    }
+
+    /**
+     *
+     */
+    public function getToken()
+    {
+     return $this->api_token;
+    }
+
 }

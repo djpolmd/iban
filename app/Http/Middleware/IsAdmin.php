@@ -13,14 +13,6 @@ class isAdmin
     /**
      * @return mixed
      */
-    public function getUserId($token){
-
-        $user =  User::first();
-
-        $user = $user->getUserByToken($token);
-
-        return $user->pluck('id')->last();
-    }
 
     /**
      * Handle an incoming request.
@@ -36,16 +28,16 @@ class isAdmin
         $user = new User();
         $token = $request->get('token');
 
-        if($this->getUserId($token) == null)
+        if($user->getUserId($token) == null)
               return response('Wrong token.', 401);
 
-        $userRole = $user->where('id', $this->getUserId($token))->first()->getUserRole();
+        $userRole = $user->where('id', $user->getUserId($token))->first()->getUserRole();
 
-        // verificam daca utilizator este admin
+        // Verificam daca utilizator este admin
 
         $isAdmin = ($userRole == "admin");
 
-        // in cazul cind nu este admin
+        // In cazul cind nu este admin
 
         if( !$isAdmin )
         {

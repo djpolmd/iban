@@ -19,11 +19,11 @@ class isOperator
         $user = new User();
         $token = $request->get('token');
 
-        if(isAdmin::getUserId($token) == null)
+        if($user->getUserId($token) == null)
             return
                 response('Wrong token.', 401);
 
-        $userRole = $user->where('id', $this->getUserId($token))
+        $userRole = $user->where('id', $user->getUserId($token))
             ->first()
             ->getUserRole();
 
