@@ -4,7 +4,6 @@ namespace App\Rules;
 
 use App\Iban;
 use Illuminate\Contracts\Validation\Rule;
-use Illuminate\Support\Facades\App;
 
 class Unique implements Rule
 {
@@ -17,7 +16,6 @@ class Unique implements Rule
     {
         //
     }
-
     /**
      * Determine if the validation rule passes.
      *
@@ -38,8 +36,8 @@ class Unique implements Rule
          while ($i <= count($ibans1)-1)
        {
           $var =  substr($ibans1[$i], 10,14);
-            if($var == $value) return false;
-             $i++;
+          if($var == $last_character) return false;
+            $i++;
        }
             return true;
     }

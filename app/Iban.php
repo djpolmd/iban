@@ -9,6 +9,8 @@ class Iban extends Model
 {
     use Notifiable;
 
+    public $timestamps = false;
+
     protected  $fillable = [
         'cod_eco',
         'cod_local',

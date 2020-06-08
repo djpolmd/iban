@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
         'locality_id'=> App\Locality::all()->random()->id,
         'email'   => 'admin@admin.com',
         'password' => bcrypt('password'),
-           'api_token' => Str::random(60),
+           'api_token' => '06a4f88B6ig21285r2VUKjT05S3bxTMUNMwy0ad5ZlZkAWj5Vz34Rzev6bBG',
          ]);
 
        DB::table('role_users')->insert([

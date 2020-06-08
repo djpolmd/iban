@@ -49532,10 +49532,11 @@ var app = new Vue({
       var _this = this;
 
       this.ifVisible = true;
+      this.localityOptions = [];
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/locality/' + this.getIdRaion()).then(function (response) {
         _this.selectedLocality = response.data[0];
 
-        for (var i = 0; i < r.data.length; i++) {
+        for (var i = 0; i < response.data.length; i++) {
           _this.localityOptions.push(response.data[i]);
         }
       }, function (error) {
@@ -49550,7 +49551,8 @@ var app = new Vue({
       var _this2 = this;
 
       this.ifVisible = true;
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/locality/' + this.selectedEcocod.id + '/' + this.selectedRaion.id + '/' + this.selectedLocality.id + '/').then(function (response) {
+      var url = '/api/get_iban_operator?token=' + api_token + '&ecocod=' + this.selectedEcocod.id + '&raion=' + this.selectedRaion.name + '&locality=' + this.selectedLocality.id;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(url).then(function (response) {
         _this2.options = response.data.items;
 
         (function (error) {
@@ -49573,22 +49575,18 @@ var app = new Vue({
   mounted: function mounted() {
     var _this3 = this;
 
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/raion').then(function (r) {
-      _this3.selectedRaion = r.data[0];
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/raion_operator?token=' + api_token).then(function (r) {
+      _this3.selectedRaion = r.data;
 
-      for (var i = 0; i < r.data.length; i++) {
-        _this3.raionOptions.push(r.data[i]);
-      }
+      _this3.raionOptions.push(r.data);
     }, function (error) {
       console.error(error);
     }), //  get data for "selectedLocality" model
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/locality/1').then(function (r) {
-      // var formatted = []
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/locality_operator?token=' + api_token).then(function (r) {
       _this3.selectedLocality = r.data[0];
 
       for (var i = 0; i < r.data.length; i++) {
-        _this3.localityOptions.push(r.data[i]); // formatted[i] = { value: r.data[i].id, text: r.data[i].name }
-
+        _this3.localityOptions.push(r.data[i]);
       }
     }, function (error) {
       console.error(error);

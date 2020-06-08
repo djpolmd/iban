@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\EcoCod;
-use App\Http\Middleware\isAdmin;
-use App\Http\Requests\IsAdmin as AdminRequest;
+
 use App\Rules\Unique;
 use App\Rules\Uppercase;
 use App\Http\Resources\Ecocod as EcocodResource;
@@ -59,6 +58,9 @@ class ApiTokenController extends Controller
         return  LocalityResource::collection($next);
     }
 
+    /**
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function raion()
     {
         $loc = Locality::all();
@@ -75,6 +77,10 @@ class ApiTokenController extends Controller
         return RaionResource::collection($collect);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Resources\Json\AnonymousResourceCollection|\Illuminate\Http\Response
+     */
     public function iban(Request $request)
     {
         // exeemple of URL : api/iban?codeco=113230&raion=5050&locality=1212
@@ -103,6 +109,9 @@ class ApiTokenController extends Controller
         return  IbanResource::collection($iban);
     }
 
+    /**
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function ecocod()
     {
        return  EcocodResource::collection(EcoCod::all());
@@ -124,44 +133,163 @@ class ApiTokenController extends Controller
                  response('Wrong iban format: ' . $validator->getMessageBag(), 422);
          }
 
-        $iban = $request->get('iban');
+         $iban = $request->get('iban');
 
+          $codeco = substr($iban,10, 6);
+          $codlocal = substr($iban,16,4);
 
-        return response('Iban a fost adaugat cu succes :' . $iban ,200)
+          if( Locality::all()->where('cod3','=', $codlocal)->first() === null)
+              return response('Incorecta  selectat localitatea',422);
+          if( EcoCod::all()->where('cod','=', $codeco)->first() === null)
+              return response('Incorect  selectat ecocod',422);
+
+          $iban_data = new Iban();
+              $iban_data->cod_eco = $codeco;
+              $iban_data->cod_local = $codlocal;
+              $iban_d  = Locality::all()
+                            ->where('cod3', '=', $codlocal)->last();
+              $iban_d = substr($iban_d->getCodRaion(),0,2);
+              $iban_data->cod_raion = $iban_d;
+              $iban_data->iban = $iban;
+           if ($iban_data->save())
+               return
+                    response('Iban a fost adaugat cu succes :' . $iban ,200)
                             ->header('Content-Type', 'text/plain');
+
+           else response('A fost comisa greseala in momentul salvarii :' . $iban ,200)
+               ->header('Content-Type', 'text/plain');
     }
+
 
     public function get_iban(Request $request)
     {
-         $token =  $request->get('token');
-         $iban =   $request->get('iban');
+         $token  = $request->get('token');
+         $ecocod = $request->get('ecocod');
+         $raion  = substr($request->get('locality'), 0, 2);
+         $locality = $request->get('locality');
 
+         $iban =  Iban::where('cod_eco',   '=', $ecocod)
+//                    ->where('cod_raion','=', $raion)
+                      ->where('cod_local','=', $locality)
+                      ->pluck('iban')
+                      ->last();
 
-        return response('Iban get' . $iban . $token,200)
-            ->header('Content-Type', 'text/plain');
+        if ($iban === null)
+            return response('Iban nu a fost gasit',200)
+                ->header('Content-Type', 'application/json,');
+
+        return response($iban,200)
+                    ->header('Content-Type', 'application/json');
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     */
     public function get_iban_operator(Request $request)
     {
-        $token = $request->get('token');
-        $user = User::first();
-        $user = $user->getUserByToken($token);
-        $raion = $user->first()
-            ->locality()
-            ->get('name')
-            ->pluck('name')
-            ->last();
+        $token =  $request->get('token');
+        $user  =  User::first();
+        $user  =  $user->getUserByToken($token);
+        $raion =  $user->first()
+                    ->locality()
+                    ->get('name')
+                    ->pluck('name')
+                    ->last();
 
-        return response('Iban get opertor' . $token,200)
+        return response('Iban get opertor' .$raion . $token,200)
             ->header('Content-Type', 'text/plain');
     }
 
-    public function put_iban(Request $request)
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     */
+    public function raion_operator(Request $request)
     {
         $token =  $request->get('token');
-        $iban =   $request->get('iban');
+        $user  =  User::first();
+        $user  =  $user->getUserByToken($token);
+        $raion =  $user->first()
+                        ->locality()
+                        ->pluck('cod1')
+                        ->last();
+        $query = Locality::where('cod3','=', $raion)
+                        ->get('name')
+                        ->pluck('name')
+                        ->last();
 
-        return response('Iban get opertor' .$token,200)
+        $name = $raion . ' - ' . $query;
+
+        return response($name,200)
+            ->header('Content-Type', 'application/json');
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     */
+    public function locality_operator(Request $request)
+    {
+        $token =  $request->get('token');
+        $user  =  User::first();
+        $user  =  $user->getUserByToken($token);
+        $raion =  $user->first()
+            ->locality();
+        $id = $raion->pluck('id')->last();
+
+            $next =  Locality::where('id', '>' , $id)->get();
+            foreach ($next as $item)
+            {
+                if($item->isRaion())
+                    $next  =  $next->where('id','<', $item->id);
+            }
+
+        return  LocalityResource::collection($next);
+    }
+
+    /**
+     * @param Request $request
+     * @param $iban_id
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     */
+    public function put_iban(Request $request, $iban_id)
+    {
+        $token =  $request->get('token');
+        $new =   $request->get('iban');
+
+        $old_iban = Iban::findOrFail($iban_id);
+
+        $validator = Validator::make($request->all(),[
+            'iban' => ['required',
+                'unique:ibans',
+                'max:24',
+                'starts_with:MD',
+                new Uppercase,
+                new Unique]
+        ]);
+
+        if($validator->fails()){
+            return
+                response('Wrong iban format: ' . $validator->getMessageBag(), 422);
+        }
+
+        return response('Iban put opertor' .$token,200)
                  ->header('Content-Type', 'text/plain');
+    }
+
+    /**
+     * @param Request $request
+     * @param $iban_id
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     */
+    public function delete_iban(Request $request, $iban_id)
+    {
+        $token =  $request->get('token');
+
+        Locality::find($iban_id)->delete();
+
+        return response('Iban deleted' .$token,200)
+        ->header('Content-Type', 'text/plain');
     }
 }

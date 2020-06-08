@@ -8,20 +8,21 @@ use App\Locality;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use JavaScript;
+
 
 class MainController extends Controller
 {
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
    public function index(Request $request)
    {
        $users = User::all();
 
-       $token = Auth()->user()->getToken();
-
-       return view('index')
-                 ->withUsers($users)
-                 ->withToken($token);
+       return view('index')->withUsers($users);
    }
-   //    From route IBAN
 
     /**
      * @param Request $request
@@ -29,6 +30,36 @@ class MainController extends Controller
      */
    public  function iban(Request $request)
    {
+       $users = User::all();
+
+       $token = Auth()->user()->getToken();
+
+       JavaScript::put([
+           'api_token' => $token
+       ]);
+
        return view('form');
+   }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+   public function post_form()
+   {
+       $user = Auth()->user();
+
+       if ( $user->getUserRole() !== 'admin')
+             return redirect('home',302);
+
+
+       dd($user->getUserRole());
+
+       $token = $user->getToken();
+
+       JavaScript::put([
+           'api_token' => $token
+       ]);
+
+       return view('post');
    }
 }

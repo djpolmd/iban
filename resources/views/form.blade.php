@@ -1,11 +1,13 @@
 @extends('layouts.app')
 
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
+                    <a href="{{ url('post_form') }}"> accesati Forma de Administrare </a><br>
                     Forma utilizatorului :
                        @if( Auth()->check())
                            @php($username =  Auth()->user()->nume)

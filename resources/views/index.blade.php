@@ -68,6 +68,8 @@
 
             <div class="content">
                 <div class="container-fluid">
+                    <a href="{{ url('post_form') }}">Forma de Administrare </a><br>
+
                     Count users:
                     {{ $users->count() }}
                     <br>
