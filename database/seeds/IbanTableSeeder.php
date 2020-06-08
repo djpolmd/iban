@@ -10,7 +10,7 @@ class IbanTableSeeder extends CsvSeeder
     public function __construct()
     {
         $this->table = 'iban';
-        $this->insert_chunk_size = 20;
+        $this->insert_chunk_size = 200;
         $this->csv_delimiter = ',';
         $this->filename = base_path().'/resources/db/iban_2020.csv';
         $this->mapping = [

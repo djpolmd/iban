@@ -1,11 +1,13 @@
 @extends('layouts.app')
 
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
+                    <a href="{{ url('post_form') }}"> accesati Forma de Administrare </a><br>
                     Forma utilizatorului :
                        @if( Auth()->check())
                            @php($username =  Auth()->user()->nume)
@@ -49,20 +51,27 @@
 {{--                              EcoCod  --}}
                                 <li class="form_li">
                                     <label for="cod_eco">Codul Eco:</label>
-                                    <v-select
-                                        :options="{!! $ecocod !!}"
+                                    <v-select v-model="selectedEcocod"
+                                        :options="optionsEcocod"
+
+                                        label="name"
                                     ></v-select>
+                                   selectedRaion : @{{ getIdEcocod()  }}
+
                                 </li>
 {{--                               Raion --}}
                                 <li class="form_li">
                                     <label>Raionul:</label>
-                                    <v-select v-model="selectedRaion"
-                                        :options="{!! $raion !!}"
+                                    <v-select
+                                        v-on:input="getOptions()"
+                                        v-model="selectedRaion"
+                                        :options="raionOptions"
                                         v-bind:value="selectedRaion"
+                                        label="name"
                                     >
 
                                     </v-select>
-                                   v-Model selectedRaion : @{{ selectedRaion }}
+                                   v-Model selectedRaion : @{{ getIdRaion() }}
                                 </li>
 {{--                                Localiatea--}}
                                 <li class="form_li">
@@ -70,20 +79,38 @@
 
                                     <v-select label="name"  v-model="selectedLocality"
                                         :on-search="getOptions"
-                                        :options="dbOptions"
+                                        :options="localityOptions"
                                     >
                                     </v-select>
-                                    @{{ selectedLocality }}
+                                     localityOptions : @{{ getIdLocality() }}
                                     <br>
 
                                 </li>
-                            </ul>
-                            </div>
+
                         <div class="container4">
-                            <button  style="display: inline;display: block;margin-left: auto;margin-right: auto;"  name="submit" class="submit" type="submit">
+                             <button v-on:click="getIban()" style="display: inline;display: block;margin-left: auto;margin-right: auto;"
+                              {{--  @click="checkIban()"--}}
+                                     name="submit"
+                                     class="submit"
+                                     type="submit">
                                 Afiseaza codul IBAN
                             </button>
+
                         </div>
+                           <li class="form_li">
+                               <div class="vs__selected-options">
+                                {{--  <label> IBAN :  </label>  --}}
+                                    <input  v-model="IbanOptions"
+                                            v-if="ifVisible"
+                                            class="kms">
+                                   <alert-box v-if="alertBox">
+                                       Ceva nue e in regula ...
+                                   </alert-box>
+                               </div>
+
+                           </li>
+                        </ul>
+                    </div>
                     </div>
         </div>
     </div>

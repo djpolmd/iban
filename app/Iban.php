@@ -9,6 +9,8 @@ class Iban extends Model
 {
     use Notifiable;
 
+    public $timestamps = false;
+
     protected  $fillable = [
         'cod_eco',
         'cod_local',
@@ -16,6 +18,12 @@ class Iban extends Model
         'iban',
 ];
 
-
+    /**
+     * @return false|string
+     */
+    public function getLastCharacters()
+    {
+        return substr($this->iban, 10, 14);
+    }
 
 }

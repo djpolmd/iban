@@ -7,20 +7,22 @@ use App\EcoCod;
 use App\Locality;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use JavaScript;
+
 
 class MainController extends Controller
 {
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
    public function index(Request $request)
    {
        $users = User::all();
 
-       $localities = Locality::all();
-
-       return view('index')
-                 ->withUsers($users)
-                 ->withLocalities($localities);
+       return view('index')->withUsers($users);
    }
-   //    From route IBAN
 
     /**
      * @param Request $request
@@ -28,45 +30,36 @@ class MainController extends Controller
      */
    public  function iban(Request $request)
    {
-       $EcoCodModel = EcoCod::all();
-       $LocModel = Locality::all();
+       $users = User::all();
 
-       $id = 0;
-       $dropbox1 = (string)'';
-       $dropbox2 = (string)'';
-       $dropbox3 = (string)'';
+       $token = Auth()->user()->getToken();
 
-       //Format Json output : { label: 'Canada', code: 'ca' }
+       JavaScript::put([
+           'api_token' => $token
+       ]);
 
-           foreach($EcoCodModel as $obj)
-           {
-               ++$id;
-               $dropbox1 = $dropbox1 . '{ label :' . $obj->getEcoCod() . ' , code : ' . "'" . $id . "'},"  ;
-           }
-         $dropbox1 = ' [ ' . $dropbox1 . ' ] ';
-//       dd($dropbox1);
+       return view('form');
+   }
 
-       foreach($LocModel as $obj)
-       {
-           ++$id;
-          if($obj->isRaion())
-              $dropbox2 = $dropbox2 . '{ label :' . $obj->getRaion() . ' , code : ' . "'" . $id . "'},"  ;
-       }
-       $dropbox2 = ' [ ' . $dropbox2 . ' ] ';
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+   public function post_form()
+   {
+       $user = Auth()->user();
 
-       $id = 0;
+       if ( $user->getUserRole() !== 'admin')
+             return redirect('home',302);
 
-       foreach($LocModel as $obj)
-       {
-           ++$id;
-           if(!$obj->isRaion())
-               $dropbox3 = $dropbox3 . '{ label :' . $obj->getSector() . ' , code : ' . "'" . $id . "'},"  ;
-       }
-       $dropbox3 = ' [ ' . $dropbox3 . ' ] ';
 
-//        dd($dropbox2);
-       return view('form')->withEcocod($dropbox1)
-                                ->withRaion($dropbox2)
-                                ->withLocalitatea($dropbox3);
+       dd($user->getUserRole());
+
+       $token = $user->getToken();
+
+       JavaScript::put([
+           'api_token' => $token
+       ]);
+
+       return view('post');
    }
 }

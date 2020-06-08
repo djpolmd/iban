@@ -19,22 +19,35 @@ use Illuminate\Http\Request;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
-
-
 });
 
-//Route::apiResources([
-//    '/raion'    => 'ApiTokenController@raion',
-//    '/localitatea'  => 'ApiTokenController@localitatea',
-//]);
 
 Route::get('/raion', function () {
              return  LocalityResource::collection(Locality::all());
 });
 
+
 Route::get('/locality/{id}', 'ApiTokenController@locality');
-Route::get('/raion', 'ApiTokenController@raion');
+Route::get('/raion',  'ApiTokenController@raion');
 Route::get('/ecocod', 'ApiTokenController@ecocod');
-Route::get('/iban/{ecocod}/{raion}/{locality}', 'ApiTokenController@iban');
+
+    //  /iban?ecocod={{}}&codlocal={{}}&raion={{}};
+
+Route::get('/iban', 'ApiTokenController@iban');
 
 
+// DEMO for CRUD methods
+Route::group(['middleware' => 'isAdmin'], function() {
+     Route::post('/add_iban'             , 'ApiTokenController@add_iban');
+     Route::put('/put_iban{ibab_id}'     , 'ApiTokenController@put_iban');
+     Route::get('/get_iban'       , 'ApiTokenController@get_iban');
+     Route::delete('delete_iban/{iban_id}','ApiTokenController@delete_iban');
+});
+
+Route::group(['middleware' => 'isOperator'], function() {
+    Route::get('/get_iban_operator', 'ApiTokenController@get_iban_operator');
+    Route::get('/raion_operator',  'ApiTokenController@raion_operator');
+    Route::get('/locality_operator', 'ApiTokenController@locality_operator');
+});
+
+//Route::post('add_iban/{iban}', 'ApiTokenController@add_iban' );

@@ -2,16 +2,20 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+window.axios.defaults.headers.common = {
+    'X-Requested-With': 'XMLHttpRequest',
+};
 
 Vue.component('v-select', vSelect);
 
 import axios from "axios"
 
+
 import vSelect from 'vue-select';
 
-const app = new Vue({
+const admin = new Vue({
     el: '#iban',
-
+    props: ['myProps'],
     data:
         {
             selectedRaion :   [],   // binded v-model for selected Raion
@@ -21,9 +25,12 @@ const app = new Vue({
             raionOptions :    [],
             localityOptions : [],
             IbanOptions :     [],
+            IbanResponce:     [],
             ifVisible : false,
             alertBox : false,
         },
+
+
     components: {
         vSelect,
     },
@@ -38,6 +45,7 @@ const app = new Vue({
                     for (let i = 0; i < response.data.length; i++) {
                         this.localityOptions.push(response.data[i]);
                     }
+
                 },
 
                 error => {
@@ -53,21 +61,23 @@ const app = new Vue({
         getIban() {
             this.ifVisible = true;
 
-            var url = '/api/get_iban_operator?token=' +
+            var url = '/api/get_iban?token=' +
                 api_token + '&ecocod=' +
                 this.selectedEcocod.id  + '&raion=' +
                 this.selectedRaion.name + '&locality=' +
                 this.selectedLocality.id;
 
+            console.log('was press -  '+ api_token + '/ '+ url);
+
             axios.get(url)
                 .then(response => {
-                    this.options = response.data.items;
-                error => {
-                    console.error(error)
-                    this.alertBox = true;
-                    }
-            });
+                    this.IbanResponce = response.data;
+                    console.log(response)
 
+                })
+                .catch(error => {
+                    console.log(error.response)
+                });
         },
         //  Getters for ID
         getIdEcocod(){
@@ -81,15 +91,16 @@ const app = new Vue({
         getIdLocality(){
             return this.selectedLocality.id;
         }
-
     },
 
     mounted () {
-            axios.get('/api/raion_operator?token='+api_token)
-                .then(r => {
-                        this.selectedRaion = r.data;
-                            this.raionOptions.push(r.data);
 
+            axios.get('/api/raion')
+                .then(r => {
+                        this.selectedRaion = r.data[0];
+                        for (let i = 0; i < r.data.length; i++) {
+                            this.raionOptions.push(r.data[i]);
+                        }
                     },
                     error => {
                         console.error(error)
@@ -97,11 +108,13 @@ const app = new Vue({
             ),
 
             //  get data for "selectedLocality" model
-            axios.get('/api/locality_operator?token='+api_token)
+            axios.get('/api/locality/1')
                 .then(r => {
+                        // var formatted = []
                         this.selectedLocality = r.data[0];
                         for (let i = 0; i < r.data.length; i++) {
                             this.localityOptions.push(r.data[i]);
+                            // formatted[i] = { value: r.data[i].id, text: r.data[i].name }
                         }
                     },
                     error => {
@@ -120,6 +133,8 @@ const app = new Vue({
                         console.error(error)
                     }
                 )
+
+
     }
 
 });

@@ -64,4 +64,16 @@ class Locality extends Model
                     return "'" .$this->cod3 . ' - ' . $this->name . "'";
                 }
         }
+
+    /**
+     * @return mixed
+     */
+    public function getCodRaion()
+    {
+     return $this->cod1;
+//         Locality::all()
+//             ->where('cod3', '=', $this->cod1)
+//             ->pluck('cod3')
+//             ->last();
+    }
 }
