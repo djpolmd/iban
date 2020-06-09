@@ -56,8 +56,6 @@
 
                                         label="name"
                                     ></v-select>
-                                   selectedRaion : @{{ getIdEcocod()  }}
-
                                 </li>
 {{--                               Raion --}}
                                 <li class="form_li">
@@ -71,7 +69,7 @@
                                     >
 
                                     </v-select>
-                                   v-Model selectedRaion : @{{ getIdRaion() }}
+
                                 </li>
 {{--                                Localiatea--}}
                                 <li class="form_li">
@@ -82,7 +80,6 @@
                                         :options="localityOptions"
                                     >
                                     </v-select>
-                                     localityOptions : @{{ getIdLocality() }}
                                     <br>
 
                                 </li>

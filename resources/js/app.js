@@ -34,20 +34,20 @@ const app = new Vue({
             this.localityOptions = [];
             axios.get('/api/locality/'+this.getIdRaion())
                 .then(response => {
-                    this.selectedLocality = response.data[0];
-                    for (let i = 0; i < response.data.length; i++) {
-                        this.localityOptions.push(response.data[i]);
-                    }
-                },
+                        this.selectedLocality = response.data[0];
+                        for (let i = 0; i < response.data.length; i++) {
+                            this.localityOptions.push(response.data[i]);
+                        }
+                    },
 
-                error => {
-                    console.error(error)
-                     this.alertBox = true;
-                 }
-            )},
+                    error => {
+                        console.error(error)
+                        this.alertBox = true;
+                    }
+                )},
 
         checkIban(){
-          if(this.IbanOptions)  this.ifVisible = true;
+            if(this.IbanOptions)  this.ifVisible = true;
         },
 
         getIban() {
@@ -55,19 +55,18 @@ const app = new Vue({
 
             var url = '/api/get_iban_operator?token=' +
                 api_token + '&ecocod=' +
-                this.selectedEcocod.id  + '&raion=' +
-                this.selectedRaion.name + '&locality=' +
+                this.selectedEcocod.id  + '&locality=' +
                 this.selectedLocality.id;
 
             axios.get(url)
                 .then(response => {
-                    this.options = response.data.items;
-                error => {
-                    console.error(error)
-                    this.alertBox = true;
-                    }
-            });
+                    this.IbanResponce = response.data;
+                    console.log(response)
 
+                })
+                .catch(error => {
+                    console.log(error.response)
+                });
         },
         //  Getters for ID
         getIdEcocod(){
@@ -85,15 +84,15 @@ const app = new Vue({
     },
 
     mounted () {
-            axios.get('/api/raion_operator?token='+api_token)
-                .then(r => {
-                        this.selectedRaion = r.data;
-                            this.raionOptions.push(r.data);
+        axios.get('/api/raion_operator?token='+api_token)
+            .then(r => {
+                    this.selectedRaion = r.data;
+                    this.raionOptions.push(r.data);
 
-                    },
-                    error => {
-                        console.error(error)
-                    }
+                },
+                error => {
+                    console.error(error)
+                }
             ),
 
             //  get data for "selectedLocality" model

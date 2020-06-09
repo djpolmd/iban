@@ -49551,14 +49551,12 @@ var app = new Vue({
       var _this2 = this;
 
       this.ifVisible = true;
-      var url = '/api/get_iban_operator?token=' + api_token + '&ecocod=' + this.selectedEcocod.id + '&raion=' + this.selectedRaion.name + '&locality=' + this.selectedLocality.id;
+      var url = '/api/get_iban_operator?token=' + api_token + '&ecocod=' + this.selectedEcocod.id + '&locality=' + this.selectedLocality.id;
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(url).then(function (response) {
-        _this2.options = response.data.items;
-
-        (function (error) {
-          console.error(error);
-          _this2.alertBox = true;
-        });
+        _this2.IbanResponce = response.data;
+        console.log(response);
+      })["catch"](function (error) {
+        console.log(error.response);
       });
     },
     //  Getters for ID
@@ -49650,8 +49648,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'; // 
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/userhome/laravel/iban/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/userhome/laravel/iban/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/userhome/laravel/project/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/userhome/laravel/project/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

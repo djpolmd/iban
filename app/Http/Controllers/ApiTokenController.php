@@ -189,16 +189,26 @@ class ApiTokenController extends Controller
     public function get_iban_operator(Request $request)
     {
         $token =  $request->get('token');
+        $ecocod =  $request->get('ecocod');
         $user  =  User::first();
         $user  =  $user->getUserByToken($token);
-        $raion =  $user->first()
+        $locality =  $user->first()
                     ->locality()
-                    ->get('name')
-                    ->pluck('name')
+                    ->get('cod3')
+                    ->pluck('cod3')
                     ->last();
 
-        return response('Iban get opertor' .$raion . $token,200)
-            ->header('Content-Type', 'text/plain');
+        $iban =  Iban::where('cod_eco', '=', $ecocod)
+            ->where('cod_local','=', $locality)
+            ->pluck('iban')
+            ->last();
+
+        if ($iban === null)
+            return response('Iban nu a fost gasit',200)
+                ->header('Content-Type', 'application/json,');
+
+        return response($iban,200)
+            ->header('Content-Type', 'application/json');
     }
 
     /**
