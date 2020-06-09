@@ -97,9 +97,11 @@
                            <li class="form_li">
                                <div class="vs__selected-options">
                                 {{--  <label> IBAN :  </label>  --}}
-                                    <input  v-model="IbanOptions"
-                                            v-if="ifVisible"
-                                            class="kms">
+                                   <input  v-model="IbanResponce"
+                                           v-if="ifVisible"
+                                           class="kms"
+                                           value="IbanResponce"
+                                   >
                                    <alert-box v-if="alertBox">
                                        Ceva nue e in regula ...
                                    </alert-box>

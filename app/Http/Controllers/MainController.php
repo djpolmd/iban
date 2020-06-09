@@ -51,9 +51,6 @@ class MainController extends Controller
        if ( $user->getUserRole() !== 'admin')
              return redirect('home',302);
 
-
-       dd($user->getUserRole());
-
        $token = $user->getToken();
 
        JavaScript::put([
