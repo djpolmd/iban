@@ -123,9 +123,10 @@ class ApiTokenController extends Controller
             'iban' => ['required',
                        'unique:ibans',
                        'max:24',
+                       'min:24',
                        'starts_with:MD',
                         new Uppercase,
-                        new Unique]
+                        new Unique ]
         ]);
 
          if($validator->fails()){
@@ -180,6 +181,27 @@ class ApiTokenController extends Controller
 
         return response($iban,200)
                     ->header('Content-Type', 'application/json');
+    }
+
+    public function get_iban_id(Request $request)
+    {
+        $token  = $request->get('token');
+        $ecocod = $request->get('ecocod');
+        $raion  = substr($request->get('locality'), 0, 2);
+        $locality = $request->get('locality');
+
+        $iban_id =  Iban::where('cod_eco',   '=', $ecocod)
+
+            ->where('cod_local','=', $locality)
+            ->pluck('id')
+            ->last();
+
+        if ($iban_id === null)
+            return response('Iban nu a fost gasit',200)
+                ->header('Content-Type', 'application/json,');
+
+        return response($iban_id,200)
+            ->header('Content-Type', 'application/json');
     }
 
     /**
@@ -265,28 +287,51 @@ class ApiTokenController extends Controller
      */
     public function put_iban(Request $request, $iban_id)
     {
-        $token =  $request->get('token');
-        $new =   $request->get('iban');
-
-        $old_iban = Iban::findOrFail($iban_id);
 
         $validator = Validator::make($request->all(),[
             'iban' => ['required',
                 'unique:ibans',
                 'max:24',
+                'min:24',
                 'starts_with:MD',
                 new Uppercase,
-                new Unique]
+                new Unique ]
         ]);
 
         if($validator->fails()){
             return
-                response('Wrong iban format: ' . $validator->getMessageBag(), 422);
+                response('Incorect Iban  format: ' . $validator->getMessageBag(), 422);
         }
 
-        return response('Iban put opertor' .$token,200)
-                 ->header('Content-Type', 'text/plain');
+        $iban = $request->get('iban');
+
+        $codeco = substr($iban,10, 6);
+        $codlocal = substr($iban,16,4);
+
+        if( Locality::all()->where('cod3','=', $codlocal)->first() === null)
+            return response('Incorecta  selectat localitatea',422);
+        if( EcoCod::all()->where('cod','=', $codeco)->first() === null)
+            return response('Incorect  selectat ecocod',422);
+
+        $iban_d  = Locality::all()
+            ->where('cod3', '=', $codlocal);
+
+        $iban_d = substr($iban_d->getCodRaion(),0,2);
+
+        if (Iban::where('id','=', $iban_id)->update([
+            'cod_eco' => $codeco,
+            'cod_local' => $codlocal,
+            'cod_raion' => $iban_d,
+            'iban' => $iban,
+        ]))
+            return
+                response('Iban a fost adaugat cu succes :' . $iban ,200)
+                    ->header('Content-Type', 'text/plain');
+
+        else response('A fost comisa greseala in momentul salvarii :' . $iban ,200)
+            ->header('Content-Type', 'text/plain');
     }
+
 
     /**
      * @param Request $request

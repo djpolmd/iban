@@ -57,7 +57,6 @@
 
                                           label="name"
                                 ></v-select>
-                                selectedRaion : @{{ getIdEcocod()  }}
 
                             </li>
                             {{--                               Raion --}}
@@ -72,7 +71,7 @@
                                 >
 
                                 </v-select>
-                                v-Model selectedRaion : @{{ getIdRaion() }}
+
                             </li>
                             {{--                                Localiatea--}}
                             <li class="form_li">
@@ -83,7 +82,7 @@
                                           :options="localityOptions"
                                 >
                                 </v-select>
-                                localityOptions : @{{ getIdLocality() }}
+
                                 <br>
 
                             </li>
@@ -112,6 +111,20 @@
                                 </div>
 
                             </li>
+
+                            <li class="form_li">
+                                <button v-on:click="postIban()" style="display: inline;display: block;margin-left: auto;margin-right: auto;"
+                                        name="submit"
+                                        class="submit"
+                                        type="submit">
+                                    Introduce Iban
+                                </button>
+                            </li>
+                            <input type="checkbox" id="update" name="update" v-model="checkEd">
+                            <label> Modificare existent </label> @{{ IbanId }}
+                            <br>
+
+                           <label> @{{statusOnPress}} </label>
                         </ul>
                     </div>
                 </div>

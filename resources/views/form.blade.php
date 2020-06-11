@@ -106,7 +106,6 @@
                                        Ceva nue e in regula ...
                                    </alert-box>
                                </div>
-
                            </li>
                         </ul>
                     </div>

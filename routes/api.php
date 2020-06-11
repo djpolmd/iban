@@ -39,9 +39,11 @@ Route::get('/iban', 'ApiTokenController@iban');
 // DEMO for CRUD methods
 Route::group(['middleware' => 'isAdmin'], function() {
      Route::post('/add_iban'             , 'ApiTokenController@add_iban');
-     Route::put('/put_iban{ibab_id}'     , 'ApiTokenController@put_iban');
+     Route::put('/put_iban/{ibab_id}'     , 'ApiTokenController@put_iban');
      Route::get('/get_iban'       , 'ApiTokenController@get_iban');
+     Route::get('/get_iban_id'    , 'ApiTokenController@get_iban_id');
      Route::delete('delete_iban/{iban_id}','ApiTokenController@delete_iban');
+
 });
 
 Route::group(['middleware' => 'isOperator'], function() {
