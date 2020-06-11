@@ -88,7 +88,6 @@ const admin = new Vue({
                 var url = '/api/add_iban?token=' + api_token
                     + '&iban=' + this.IbanResponce;
 
-                this.IbanResponce = []; // v-model for input
                 axios.post(url)
                     .then(response => {
                         this.statusOnPress = response.data;
@@ -99,14 +98,15 @@ const admin = new Vue({
                         this.statusOnPress = error.response.statusText;
                         console.log(error.response)
                     });
+                this.IbanResponce = []; // v-model for input
             }
              else {
+                // Get ID from Selected options
                 var url = '/api/get_iban_id?token=' +
                     api_token + '&ecocod=' +
                     this.selectedEcocod.id  + '&raion=' +
                     this.selectedRaion.name + '&locality=' +
                     this.selectedLocality.id;
-
 
                 axios.get(url)
                     .then(response => {
@@ -121,15 +121,14 @@ const admin = new Vue({
 
                 //mothod PUT post
 
-                var url = '/api/put_iban/'+ this.IbanId+
-                               '?token=' + api_token
-                             + '&iban=' + this.IbanResponce;
+                var url = '/api/put_iban/' + this.IbanId+
+                               '?token='   + api_token
+                             + '&iban='    + this.IbanResponce;
 
-                this.IbanResponce = []; // v-model for input
                 axios.put(url)
                     .then(response => {
                         this.statusOnPress = response.data;
-                        console.log(response)
+                        console.log(response+ ' : Iban a fost modificat cu succeses. ')
 
                     })
                     .catch(error => {

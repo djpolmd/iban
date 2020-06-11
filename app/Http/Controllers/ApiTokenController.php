@@ -191,7 +191,6 @@ class ApiTokenController extends Controller
         $locality = $request->get('locality');
 
         $iban_id =  Iban::where('cod_eco',   '=', $ecocod)
-
             ->where('cod_local','=', $locality)
             ->pluck('id')
             ->last();
@@ -287,7 +286,6 @@ class ApiTokenController extends Controller
      */
     public function put_iban(Request $request, $iban_id)
     {
-
         $validator = Validator::make($request->all(),[
             'iban' => ['required',
                 'unique:ibans',
@@ -308,27 +306,28 @@ class ApiTokenController extends Controller
         $codeco = substr($iban,10, 6);
         $codlocal = substr($iban,16,4);
 
+
         if( Locality::all()->where('cod3','=', $codlocal)->first() === null)
             return response('Incorecta  selectat localitatea',422);
         if( EcoCod::all()->where('cod','=', $codeco)->first() === null)
             return response('Incorect  selectat ecocod',422);
 
-        $iban_d  = Locality::all()
-            ->where('cod3', '=', $codlocal);
 
-        $iban_d = substr($iban_d->getCodRaion(),0,2);
+        $cod_raion = Locality::where('cod3','=',$codlocal)
+            ->first()
+            ->getIbanRaion();
 
         if (Iban::where('id','=', $iban_id)->update([
             'cod_eco' => $codeco,
             'cod_local' => $codlocal,
-            'cod_raion' => $iban_d,
+            'cod_raion' => $cod_raion,
             'iban' => $iban,
         ]))
             return
-                response('Iban a fost adaugat cu succes :' . $iban ,200)
+                response('Iban a fost modificat cu succeses.  :' . $iban ,200)
                     ->header('Content-Type', 'text/plain');
 
-        else response('A fost comisa greseala in momentul salvarii :' . $iban ,200)
+        else response('A fost comisa greseala in momentul modificarii :' . $iban ,200)
             ->header('Content-Type', 'text/plain');
     }
 

@@ -22,11 +22,11 @@ class Locality extends Model
         return $this->belongsTo('App\User');
     }
 
-    public function getCode3Attribute($value)
-    {
-        return ucfirst($value);
-    }
 
+    /**
+     * @param $value
+     * @return string
+     */
     public function getNameAttribute($value)
     {
         return ucfirst($value);
@@ -71,9 +71,16 @@ class Locality extends Model
     public function getCodRaion()
     {
      return $this->cod1;
-//         Locality::all()
-//             ->where('cod3', '=', $this->cod1)
-//             ->pluck('cod3')
-//             ->last();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIbanRaion()
+    {
+        return
+             Iban::where('cod_local','=', $this->cod1)
+                 ->pluck('cod_raion')
+                 ->first();
     }
 }
