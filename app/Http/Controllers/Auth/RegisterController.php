@@ -33,7 +33,7 @@ class RegisterController extends Controller
     protected function redirectTo()
     {
         if(Auth::user()->getUserRole()=='admin') {
-            return 'post_form';
+            return '/admin/post_form';
         }
         return '/home';
     }

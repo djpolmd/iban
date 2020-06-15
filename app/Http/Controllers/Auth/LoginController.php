@@ -29,7 +29,7 @@ class LoginController extends Controller
     protected $redirectTo = '/home';
     protected function redirectTo()    {
         if(Auth::user()->getUserRole()=='admin') {
-            return 'post_form';
+            return '/admin/post_form';
         }
         return '/home';
     }

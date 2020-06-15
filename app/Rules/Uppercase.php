@@ -35,6 +35,6 @@ class Uppercase implements Rule
      */
     public function message()
     {
-        return 'The :attribute must be uppercase.';
+        return 'Literele trebuie sa fie Uppercase';
     }
 }

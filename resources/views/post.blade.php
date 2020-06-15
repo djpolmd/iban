@@ -97,21 +97,10 @@
                                 </button>
 
                             </div>
+
                             <li class="form_li">
-                                <div class="vs__selected-options">
-                                    {{--  <label> IBAN :  </label>  --}}
-                                    <input  v-model="IbanResponce"
-                                            v-if="ifVisible"
-                                            class="kms"
-                                            value="IbanResponce"
-                                            >
-                                    <alert-box v-if="alertBox">
-                                        Ceva nue e in regula ...
-                                    </alert-box>
-                                </div>
-
+                                <input class="kms" v-model:value="IbanResponce">
                             </li>
-
                             <li class="form_li">
                                 <button v-on:click="postIban()" style="display: inline;display: block;margin-left: auto;margin-right: auto;"
                                         name="submit"
@@ -119,9 +108,17 @@
                                         type="submit">
                                     Introduce Iban
                                 </button>
+                                   <br>
+                                <button v-on:click="deleteIban()" style="background-color:red; inline;display: block;margin-left: auto;margin-right: auto;"
+                                        name="submit"
+                                        class="submit"
+                                        type="submit">
+                                    Elimina Iban
+                                </button>
                             </li>
                             <input type="checkbox" id="update" name="update" v-model="checkEd">
                             <label> Modificare existent </label> @{{ IbanId }}
+                            <br> @{{ checkEd }}
                             <br>
 
                            <label> @{{statusOnPress}} </label>

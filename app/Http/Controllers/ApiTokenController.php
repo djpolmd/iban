@@ -139,25 +139,37 @@ class ApiTokenController extends Controller
           $codeco = substr($iban,10, 6);
           $codlocal = substr($iban,16,4);
 
+
           if( Locality::all()->where('cod3','=', $codlocal)->first() === null)
               return response('Incorecta  selectat localitatea',422);
           if( EcoCod::all()->where('cod','=', $codeco)->first() === null)
               return response('Incorect  selectat ecocod',422);
+            $cod_raion = Locality::where('cod3' ,'=', $codlocal)
+                ->first()
+                ->getIbanRaion();
 
           $iban_data = new Iban();
+            // Daca exista acest Iban deja
+           if ( !$iban_data->where([
+               'cod_eco' => $codeco,
+               'cod_local' => $codlocal,
+               'cod_raion' => $cod_raion
+           ])->first() === null)
+//            dd($codeco. $codlocal . $cod_raion);
+
+           {
+                return response('Acest Iban exista',422);
+              }
               $iban_data->cod_eco = $codeco;
               $iban_data->cod_local = $codlocal;
-              $iban_d  = Locality::all()
-                            ->where('cod3', '=', $codlocal)->last();
-              $iban_d = substr($iban_d->getCodRaion(),0,2);
-              $iban_data->cod_raion = $iban_d;
+              $iban_data->cod_raion = $cod_raion;
               $iban_data->iban = $iban;
            if ($iban_data->save())
                return
-                    response('Iban a fost adaugat cu succes :' . $iban ,200)
+                    response('Iban a fost adaugat cu succes :' . $iban ,201)
                             ->header('Content-Type', 'text/plain');
 
-           else response('A fost comisa greseala in momentul salvarii :' . $iban ,200)
+           else response('A fost comisa greseala in momentul salvarii :' . $iban ,500)
                ->header('Content-Type', 'text/plain');
     }
 
@@ -176,7 +188,7 @@ class ApiTokenController extends Controller
                       ->last();
 
         if ($iban === null)
-            return response('Iban nu a fost gasit',200)
+            return response('Iban nu a fost gasit',404)
                 ->header('Content-Type', 'application/json,');
 
         return response($iban,200)
@@ -196,7 +208,7 @@ class ApiTokenController extends Controller
             ->last();
 
         if ($iban_id === null)
-            return response('Iban nu a fost gasit',200)
+            return response('Iban nu a fost gasit',404)
                 ->header('Content-Type', 'application/json,');
 
         return response($iban_id,200)
@@ -225,7 +237,7 @@ class ApiTokenController extends Controller
             ->last();
 
         if ($iban === null)
-            return response('Iban nu a fost gasit',200)
+            return response('Iban nu a fost gasit',404)
                 ->header('Content-Type', 'application/json,');
 
         return response($iban,200)
@@ -279,6 +291,7 @@ class ApiTokenController extends Controller
         return  LocalityResource::collection($next);
     }
 
+
     /**
      * @param Request $request
      * @param $iban_id
@@ -296,11 +309,10 @@ class ApiTokenController extends Controller
                 new Unique ]
         ]);
 
-        if($validator->fails()){
+        if($validator->fails()) {
             return
-                response('Incorect Iban  format: ' . $validator->getMessageBag(), 422);
+                response('Incorect Iban  format: ' . $validator->getMessageBag()[1], 422);
         }
-
         $iban = $request->get('iban');
 
         $codeco = substr($iban,10, 6);
@@ -313,7 +325,7 @@ class ApiTokenController extends Controller
             return response('Incorect  selectat ecocod',422);
 
 
-        $cod_raion = Locality::where('cod3','=',$codlocal)
+        $cod_raion = Locality::where('cod3' ,'=', $codlocal)
             ->first()
             ->getIbanRaion();
 
@@ -327,7 +339,7 @@ class ApiTokenController extends Controller
                 response('Iban a fost modificat cu succeses.  :' . $iban ,200)
                     ->header('Content-Type', 'text/plain');
 
-        else response('A fost comisa greseala in momentul modificarii :' . $iban ,200)
+        else response('A fost comisa greseala in momentul modificarii :' . $iban ,405)
             ->header('Content-Type', 'text/plain');
     }
 
@@ -341,9 +353,13 @@ class ApiTokenController extends Controller
     {
         $token =  $request->get('token');
 
-        Locality::find($iban_id)->delete();
+       if(Iban::find($iban_id)->delete())
 
-        return response('Iban deleted' .$token,200)
-        ->header('Content-Type', 'text/plain');
+        return response('Iban a fost eliminat' ,200)
+                ->header('Content-Type', 'text/plain');
+
+       else
+           return response('Iban - nu poate fi procesat!' ,422)
+                ->header('Content-Type', 'text/plain');
     }
 }

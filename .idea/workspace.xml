@@ -4,8 +4,16 @@
     <list default="true" id="19c6643a-12e4-44b6-88dc-cea3b0f51b15" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ApiTokenController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ApiTokenController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Locality.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Locality.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/RegisterController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Rules/Uppercase.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Rules/Uppercase.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/admin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/sass/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/app.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/post.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/post.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,6 +52,13 @@
         <item name="db_iban@localhost" type="feb32156:DbDataSourceImpl" />
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
         <item name="db_iban: schema" type="76f4a085:MysqlImplModel$Schema" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="db_iban@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="db_iban: schema" type="76f4a085:MysqlImplModel$Schema" />
+        <item name="ibans: table" type="285a2a93:MysqlImplModel$Table" />
       </path>
       <path>
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
@@ -170,17 +185,17 @@
     <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/js/components" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Blade" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/js/components" />
       <recent name="$PROJECT_DIR$/resources/views/layouts" />
       <recent name="$PROJECT_DIR$/resources/js" />
       <recent name="$PROJECT_DIR$/resources/views" />
-      <recent name="$PROJECT_DIR$/resources/js/components" />
       <recent name="$PROJECT_DIR$/database/seeds" />
     </key>
   </component>
@@ -204,7 +219,7 @@
       <workItem from="1590412318925" duration="168908000" />
       <workItem from="1590975025320" duration="4000" />
       <workItem from="1591010162860" duration="102516000" />
-      <workItem from="1591707427186" duration="26420000" />
+      <workItem from="1591707427186" duration="54863000" />
     </task>
     <servers />
   </component>
@@ -269,13 +284,13 @@
     <state x="306" y="157" width="667" height="486" key="find.popup/0.0.1280.800@0.0.1280.800" timestamp="1590866250997" />
     <state x="1739" y="-378" width="1001" height="643" key="find.popup/0.23.1280.735/1280.-585.1920.1057@1280.-585.1920.1057" timestamp="1591363258476" />
     <state x="306" y="167" width="668" height="486" key="find.popup/0.23.1280.735@0.23.1280.735" timestamp="1591631577174" />
-    <state x="305" y="137" width="670" height="623" key="search.everywhere.popup" timestamp="1591857294127">
+    <state x="305" y="137" width="670" height="623" key="search.everywhere.popup" timestamp="1592163422362">
       <screen x="0" y="23" width="1280" height="735" />
     </state>
     <state x="305" y="124" width="670" height="676" key="search.everywhere.popup/0.0.1280.800@0.0.1280.800" timestamp="1590972571467" />
     <state x="1738" y="-421" width="1005" height="894" key="search.everywhere.popup/0.23.1280.709/1280.-585.1920.1057@1280.-585.1920.1057" timestamp="1591014487451" />
     <state x="1738" y="-421" width="1005" height="896" key="search.everywhere.popup/0.23.1280.735/1280.-585.1920.1057@1280.-585.1920.1057" timestamp="1591363269585" />
-    <state x="305" y="137" width="670" height="623" key="search.everywhere.popup/0.23.1280.735@0.23.1280.735" timestamp="1591857294127" />
+    <state x="305" y="137" width="670" height="623" key="search.everywhere.popup/0.23.1280.735@0.23.1280.735" timestamp="1592163422362" />
     <state x="1738" y="-432" width="1005" height="837" key="search.everywhere.popup/0.23.1280.777/1280.-585.1920.989@1280.-585.1920.989" timestamp="1591292411895" />
   </component>
   <component name="XDebuggerManager">
@@ -285,6 +300,12 @@
           <url>file://$PROJECT_DIR$/webpack.mix.js</url>
           <line>4</line>
           <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/webpack.mix.js</url>
+          <line>7</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -9,7 +9,10 @@
 
 // Select vue
 
-@import "vue-select/src/scss/vue-select.scss";
+@import '~vue-select/src/scss/vue-select.scss'
+;
+
+@import '~axios-progress-bar/dist/nprogress.css';
 
 //  Url must be succeeded by .. content: url('../images/img.jpg');
 .csv_image {
