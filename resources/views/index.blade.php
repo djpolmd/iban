@@ -68,7 +68,7 @@
 
             <div class="content">
                 <div class="container-fluid">
-                    <a href="{{ url('post_form') }}">Forma de Administrare </a><br>
+                    <a href="{{ url('admin/post_form') }}">Forma de Administrare </a><br>
 
                     Count users:
                     {{ $users->count() }}
@@ -85,7 +85,9 @@
                         </tr>
                         </thead>
                     <tbody>
-
+                    @if(Auth()->check())
+                            @php($isAdmin = Auth()->user()->getUserRole() == 'admin')
+                    @endif
                     @foreach( $users as $user )
                         <tr>
                             <th scope="row">{{$user->id }}</th>
@@ -95,6 +97,11 @@
                             <td> {{ $user->email }}</td>
                             <td> {{  $user->getUserRole() }} </td>
                             <td> {{ $user->getUserRolePermissions() }} </td>
+                            @if($isAdmin)
+                                <td><a href="{{ url('/delete/') .'/'. $user->id }}" >"Delete" </a></td>
+                                <td><a href="{{ url('/edit/') .'/' . $user->id }}">"Edit - Put" </a> </td>
+                                <td><a href="{{ url('/insert?token='. $user->getToken())}}"> "Insert - Post"</a> </td>
+                            @endif
                     @endforeach
                     </tbody>
                     </table>

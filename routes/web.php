@@ -14,6 +14,13 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::get('/iban', 'MainController@iban')->name('iban');
     Route::get('/home', 'MainController@iban')->name('iban');
-
-
 });
+
+Route::group(['middleware' => 'isAdmin'], function() {
+    Route::get('/insert',   'MainController@new_user');
+    Route::post('/insert',  'MainController@new_user');
+    Route::get('/edit/{id}','MainController@get_user');
+    Route::put('/edit{id}', 'MainController@edit_user');
+    Route::delete('/delete/{id}','MainUser@edit_user');
+});
+

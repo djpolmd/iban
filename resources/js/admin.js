@@ -12,8 +12,14 @@ import VueSimpleAlert from "vue-simple-alert";
 import axios from "axios"
 import vSelect from 'vue-select';
 import { loadProgressBar } from 'axios-progress-bar';
+import VueAxios from 'vue-axios';
+import axiosRetry from 'axios-retry';
+
 
 Vue.use(VueSimpleAlert);
+Vue.use(VueAxios, axios)
+
+axiosRetry(axios, { retryDelay: axiosRetry.exponentialDelay});
 
 const admin = new Vue({
     el: '#iban',
@@ -76,8 +82,6 @@ const admin = new Vue({
                 this.selectedRaion.name + '&locality=' +
                 this.selectedLocality.id;
 
-            console.log('was press -  '+ api_token + '/ '+ url);
-
              axios.get(url)
                 .then(response => {
                     this.IbanResponce = response.data;
@@ -114,14 +118,16 @@ const admin = new Vue({
         },
 
         async postIban(){
-
             if (this.checkEd === false)
             {
                     var url = '/api/add_iban?token=' + api_token
                         + '&iban=' + this.IbanResponce;
                     loadProgressBar();
 
-                    axios.post(url)
+                    this.axios.post(url, {
+                        'axios-retry': {
+                            retries: 3
+                        }})
                         .then(response => {
                             this.statusOnPress = response.data;
                             console.log(response.data)
@@ -131,10 +137,9 @@ const admin = new Vue({
                         .catch(error => {
                             this.statusOnPress = error.response.statusText;
                             console.log(error.response);
-                            this.$alert(error.response.data, 'Atenție', "warning");
-
+                            console.log('Checkbox status = ' + this.checkEd);
+                            this.$alert(error.response.data + error.response.statusText, 'Atenție', "warning");
                         });
-                    this.IbanResponce = []; // v-model for input
             }
              else {
                 // Get ID from Selected options
@@ -157,7 +162,8 @@ const admin = new Vue({
                     })
                     .catch(error => {
                         this.statusOnPress = error.response.statusText;
-                        console.log(error.response.statusText)
+                        console.log(error.response.statusText);
+                        console.log('Checkbox status = ' + this.checkEd);
                         this.$alert(error.response.data + error.response.statusText,'Atenție', "warning");
                     });
              }
@@ -179,7 +185,7 @@ const admin = new Vue({
                 .then(response => {
                     this.statusOnPress = response.data;
                     console.log(response);
-                    this.$alert(response.data + ' : Iban a fost modificat cu succeses. ', 'Succes!', 'success');
+                    this.$alert(response.data + ' : Iban a fost șters cu succeses. ', 'Succes!', 'success');
 
                 })
                 .catch(error => {

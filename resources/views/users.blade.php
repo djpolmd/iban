@@ -28,36 +28,22 @@
                             </div>
                         @endif
 
-                        @php($data = " [{ label: '2017', code: '1' },
-                                       { label: '2018', code: '2' },
-                                       { label: '2019', code: '3' },
-                                       { label: '2020', code: '4' }]
-                               " )
                         <ul>
-                            {{--                          CSV IMAGE      --}}
                             <li class="form_li">
                                 <a style="display: inline; padding-left: 445px;" href="{{ mix('csv/iban_2020.csv') }}"> Descarca registru
                                     <div class="csv_image">
                                     </div>
                                 </a>
                             </li>
-                            {{--                             Anul   --}}
+                            {{--                             Nume   --}}
                             <li class="form_li">
-                                <label for="cod_anul">Anul:</label>
-                                <v-select
-                                    my-props="test test"
-                                    :options="{!! $data !!}"
-                                ></v-select>
+                                <label for="cod_anul">Nume:</label>
+                                <input name="nume" value="" placeholder="Nume">
                             </li>
-                            {{--                              EcoCod  --}}
+                            {{--                              Prenume  --}}
                             <li class="form_li">
-                                <label for="cod_eco">Codul Eco:</label>
-                                <v-select v-model="selectedEcocod"
-                                          :options="optionsEcocod"
-
-                                          label="name"
-                                ></v-select>
-
+                                <label for="cod_eco">Prenume:</label>
+                                <input name="prenume" placeholder="Prenume">
                             </li>
                             {{--                               Raion --}}
                             <li class="form_li">
@@ -81,39 +67,6 @@
                                 </v-select>
                                 <br>
                             </li>
-
-                            <div class="container4">
-                                <button v-on:click="getIban()" style="display: inline;display: block;margin-left: auto;margin-right: auto;"
-                                        {{--  @click="checkIban()"--}}
-                                        name="submit"
-                                        class="submit"
-                                        type="submit">
-                                    Afiseaza codul IBAN
-                                </button>
-
-                            </div>
-
-                            <li class="form_li">
-                                <input class="kms" v-model:value="IbanResponce">
-                            </li>
-                            <li class="form_li">
-                                <button v-on:click="postIban()" style="display: inline;display: block;margin-left: auto;margin-right: auto;"
-                                        name="submit"
-                                        class="submit"
-                                        type="submit">
-                                    Introduce Iban
-                                </button>
-                                   <br>
-                                <button v-on:click="deleteIban()" style="background-color:red; inline;display: block;margin-left: auto;margin-right: auto;"
-                                        name="submit"
-                                        class="submit"
-                                        type="submit">
-                                    Elimina Iban
-                                </button>
-                            </li>
-                            <input type="checkbox" id="update" name="update" v-model="checkEd">
-                            <label> Modifică Iban existent </label>
-                            <br>
 
                         </ul>
                     </div>

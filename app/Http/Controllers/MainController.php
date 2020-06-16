@@ -59,4 +59,9 @@ class MainController extends Controller
 
        return view('post');
    }
+
+    public function new_user(){
+
+       return view('users');
+    }
 }

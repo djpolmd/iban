@@ -3,6 +3,7 @@
 namespace App\Rules;
 
 use App\Iban;
+use Exception;
 use Illuminate\Contracts\Validation\Rule;
 
 class Unique implements Rule
@@ -25,21 +26,30 @@ class Unique implements Rule
      */
     public function passes($attribute, $value)
     {
-        $last_character = substr($value, 10,14);
-        // Aici referinte eloquent nu functioneza ... vom folosi Array indexat
-        $ibans = new Iban();
-        $ibans1 = $ibans->pluck('iban');
+        try {
+            $last_character = substr($value, 10, 14);
+            $codeco = substr($value, 10, 6);
+            $codlocal = substr($value, 16, 4);
 
-        $i = 0;
-        $var = (string)'';
-
-         while ($i <= count($ibans1)-1)
-       {
-          $var =  substr($ibans1[$i], 10,14);
-          if($var == $last_character) return false;
-            $i++;
-       }
+            // Aici referinte eloquent nu functioneza ...
+            // vom folosi un Array indexat
+            $ibans = new Iban();
+            $ibans1 = $ibans->where('cod_local', '=', $codlocal)
+                            ->where('cod_eco', '=', $codeco)
+                            ->pluck('iban');
+            $i = 0;
+            $var = (string)'';
+            dd($ibans1);
+            while ($i <= count($ibans1) - 1) {
+                $var = substr($ibans1[$i], 10, 14);
+                if ($var == $last_character) return false;
+                $i++;
+            }
             return true;
+        } catch (Exception $exception){
+            echo $exception;
+            return false;
+        }
     }
 
     /**

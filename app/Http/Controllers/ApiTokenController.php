@@ -16,6 +16,7 @@ use App\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Mockery\Exception;
 
 class ApiTokenController extends Controller
 {
@@ -119,70 +120,81 @@ class ApiTokenController extends Controller
 
     public function add_iban(Request $request)
     {
-        $validator = Validator::make($request->all(),[
-            'iban' => ['required',
-                       'unique:ibans',
-                       'max:24',
-                       'min:24',
-                       'starts_with:MD',
-                        new Uppercase,
-                        new Unique ]
-        ]);
+        try   //Catch error to e.handler
+        {
+            $validator = Validator::make($request->all(), [
+                'iban' => ['required',
+                    'unique:ibans',
+                    'max:24',
+                    'min:24',
+                    'starts_with:MD',
+                    new Uppercase,
+                    new Unique]
+            ]);
 
-         if($validator->fails()){
-             return
-                 response('Wrong iban format: ' . $validator->getMessageBag(), 422);
-         }
+            // Message Bag Parsing
+            if ($validator->fails()) {
+                $errors = (string)'';
+                foreach ($validator->getMessageBag()->all() as $item) {
+                    $errors = $errors . $item;
+                }
+                return
+                    response('Incorect Iban format: ' . $errors, 422);
+            }   // End MessageBag
 
-         $iban = $request->get('iban');
+            $iban = $request->get('iban');
 
-          $codeco = substr($iban,10, 6);
-          $codlocal = substr($iban,16,4);
+            $codeco = substr($iban, 10, 6);
+            $codlocal = substr($iban, 16, 4);
 
 
-          if( Locality::all()->where('cod3','=', $codlocal)->first() === null)
-              return response('Incorecta  selectat localitatea',422);
-          if( EcoCod::all()->where('cod','=', $codeco)->first() === null)
-              return response('Incorect  selectat ecocod',422);
-            $cod_raion = Locality::where('cod3' ,'=', $codlocal)
+            if (Locality::all()->where('cod3', '=', $codlocal)->first() === null)
+                return response('Incorecta  selectat localitatea', 422);
+            if (EcoCod::all()->where('cod', '=', $codeco)->first() === null)
+                return response('Incorect  selectat ecocod', 422);
+            $cod_raion = Locality::where('cod3', '=', $codlocal)
                 ->first()
                 ->getIbanRaion();
 
-          $iban_data = new Iban();
+            $iban_data = new Iban();
             // Daca exista acest Iban deja
-           if ( !$iban_data->where([
-               'cod_eco' => $codeco,
-               'cod_local' => $codlocal,
-               'cod_raion' => $cod_raion
-           ])->first() === null)
-//            dd($codeco. $codlocal . $cod_raion);
+            if ($iban_data->where([
+                    'cod_eco' => $codeco,
+                    'cod_local' => $codlocal,
+                    'cod_raion' => $cod_raion
+                ])->first() !== null) {
+                return response('Acest Iban exista!', 422);
+            }
+            $iban_data->cod_eco = $codeco;
+            $iban_data->cod_local = $codlocal;
+            $iban_data->cod_raion = $cod_raion;
+            $iban_data->iban = $iban;
 
-           {
-                return response('Acest Iban exista',422);
-              }
-              $iban_data->cod_eco = $codeco;
-              $iban_data->cod_local = $codlocal;
-              $iban_data->cod_raion = $cod_raion;
-              $iban_data->iban = $iban;
-           if ($iban_data->save())
-               return
-                    response('Iban a fost adaugat cu succes :' . $iban ,201)
-                            ->header('Content-Type', 'text/plain');
+            if ($iban_data->save())
+                return
+                    response('Iban a fost adaugat cu succes :' . $iban, 201)
+                        ->header('Content-Type', 'text/plain');
+            else response('A fost comisa greseala in momentul salvarii :' . $iban ,500)
+                        ->header('Content-Type', 'text/plain');
 
-           else response('A fost comisa greseala in momentul salvarii :' . $iban ,500)
-               ->header('Content-Type', 'text/plain');
+        } catch (Exception $exception)
+        {
+            response('A fost comisa greseala :' . $exception ,500)
+                ->header('Content-Type', 'text/plain');
+        }
+
     }
 
 
     public function get_iban(Request $request)
     {
-         $token  = $request->get('token');
+        $token  = $request->get('token');
          $ecocod = $request->get('ecocod');
          $raion  = substr($request->get('locality'), 0, 2);
          $locality = $request->get('locality');
 
+
          $iban =  Iban::where('cod_eco',   '=', $ecocod)
-//                    ->where('cod_raion','=', $raion)
                       ->where('cod_local','=', $locality)
                       ->pluck('iban')
                       ->last();
@@ -308,11 +320,17 @@ class ApiTokenController extends Controller
                 new Uppercase,
                 new Unique ]
         ]);
-
+        // Message Bag Parsing
         if($validator->fails()) {
+            $errors = (string)'';
+            foreach($validator->getMessageBag()->all() as $item)
+            {
+                $errors = $errors . $item;
+            }
             return
-                response('Incorect Iban  format: ' . $validator->getMessageBag()[1], 422);
-        }
+                response('Incorect Iban  format: ' . $errors , 422);
+        }   // End MessageBag
+
         $iban = $request->get('iban');
 
         $codeco = substr($iban,10, 6);
@@ -355,7 +373,7 @@ class ApiTokenController extends Controller
 
        if(Iban::find($iban_id)->delete())
 
-        return response('Iban a fost eliminat' ,200)
+        return response('Iban a fost șters!' ,200)
                 ->header('Content-Type', 'text/plain');
 
        else
