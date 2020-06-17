@@ -39,7 +39,7 @@ class Unique implements Rule
                             ->pluck('iban');
             $i = 0;
             $var = (string)'';
-            dd($ibans1);
+
             while ($i <= count($ibans1) - 1) {
                 $var = substr($ibans1[$i], 10, 14);
                 if ($var == $last_character) return false;

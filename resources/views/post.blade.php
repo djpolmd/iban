@@ -94,7 +94,10 @@
                             </div>
 
                             <li class="form_li">
-                                <input class="kms" v-model:value="IbanResponce">
+                                <input class="kms"
+                                       v-model:value="IbanResponce"
+                                       name="Iban"
+                                >
                             </li>
                             <li class="form_li">
                                 <button v-on:click="postIban()" style="display: inline;display: block;margin-left: auto;margin-right: auto;"
@@ -111,7 +114,11 @@
                                     Elimina Iban
                                 </button>
                             </li>
-                            <input type="checkbox" id="update" name="update" v-model="checkEd">
+                                <input type="checkbox"
+                                       id="update"
+                                       name="update"
+                                       v-model="checkEd"
+                                >
                             <label> Modifică Iban existent </label>
                             <br>
 

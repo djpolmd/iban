@@ -74,7 +74,6 @@ class ApiTokenController extends Controller
             }
         }
 
-//        dd($collect);
         return RaionResource::collection($collect);
     }
 

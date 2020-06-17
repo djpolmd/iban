@@ -97,7 +97,7 @@
                             <td> {{ $user->email }}</td>
                             <td> {{  $user->getUserRole() }} </td>
                             <td> {{ $user->getUserRolePermissions() }} </td>
-                            @if($isAdmin)
+                            @if( isset($isAdmin))
                                 <td><a href="{{ url('/delete/') .'/'. $user->id }}" >"Delete" </a></td>
                                 <td><a href="{{ url('/edit/') .'/' . $user->id }}">"Edit - Put" </a> </td>
                                 <td><a href="{{ url('/insert?token='. $user->getToken())}}"> "Insert - Post"</a> </td>

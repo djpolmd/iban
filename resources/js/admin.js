@@ -103,18 +103,22 @@ const admin = new Vue({
                 this.selectedLocality.id;
             loadProgressBar();
 
-             await
-                axios.get(url)
-                .then(response => {
-                    this.IbanId = response.data;
-                    console.log(response);
-                    return true
-                })
-                .catch(error => {
-                    this.statusOnPress = error.response.statusText;
-                    console.log(error.response);
-                    return false
-                });
+             try {
+                 const data = await axios.get(url)
+                     .then(response => {
+                         this.IbanId = response.data;
+                         console.log(response);
+
+                     })
+                     .catch(error => {
+                         this.statusOnPress = error.response.statusText;
+                         console.log(error.response);
+
+                     });
+                 return data;
+             } catch (e) {
+                 console.log(e);
+             }
         },
 
         async postIban(){
@@ -124,10 +128,7 @@ const admin = new Vue({
                         + '&iban=' + this.IbanResponce;
                     loadProgressBar();
 
-                    this.axios.post(url, {
-                        'axios-retry': {
-                            retries: 3
-                        }})
+                    this.axios.post(url)
                         .then(response => {
                             this.statusOnPress = response.data;
                             console.log(response.data)
@@ -144,7 +145,7 @@ const admin = new Vue({
              else {
                 // Get ID from Selected options
 
-                this.getIbanId();
+               const iban = await this.getIbanId();
 
                 //mothod PUT post
 
@@ -167,7 +168,7 @@ const admin = new Vue({
                         this.$alert(error.response.data + error.response.statusText,'Atenție', "warning");
                     });
              }
-            this.IbanResponce = []; // v-model for input
+            // this.IbanResponce = []; // v-model for input
         },
 
         // Delete Iban from database

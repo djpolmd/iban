@@ -37,35 +37,72 @@
                             </li>
                             {{--                             Nume   --}}
                             <li class="form_li">
-                                <label for="cod_anul">Nume:</label>
-                                <input name="nume" value="" placeholder="Nume">
+                                <div class="form-group">
+                                    <label for="inputname">Nume:</label>
+                                    <input class="form-control" id="inputname" name="nume"  placeholder="Nume" type="text">
+                                </div>
                             </li>
                             {{--                              Prenume  --}}
                             <li class="form_li">
-                                <label for="cod_eco">Prenume:</label>
-                                <input name="prenume" placeholder="Prenume">
+                                <div class="form-group">
+                                    <label for="inputname">Preume:</label>
+                                    <input class="form-control" id="inputname" name="nume" placeholder="Prenume" type="text">
+                                </div>
                             </li>
                             {{--                               Raion --}}
                             <li class="form_li">
-                                <label>Raionul:</label>
-                                <v-select
-                                    v-on:input="getOptions()"
-                                    v-model="selectedRaion"
-                                    :options="raionOptions"
-                                    v-bind:value="selectedRaion"
-                                    label="name"
-                                ></v-select>
+                                <div class="form-group">
+                                    <label>Raionul:</label>
+                                    <v-select
+                                        v-on:input="getOptions()"
+                                        v-model="selectedRaion"
+                                        :options="raionOptions"
+                                        v-bind:value="selectedRaion"
+                                        label="name"
+                                    ></v-select>
+                                </div>
                             </li>
                             {{--                                Localiatea--}}
                             <li class="form_li">
-                                <label for="cod_loc">Localitatea:</label>
+                                <div class="form-group">
+                                    <label for="cod_loc">Localitatea:</label>
 
-                                <v-select label="name"  v-model="selectedLocality"
-                                          :on-search="getOptions"
-                                          :options="localityOptions"
-                                >
-                                </v-select>
-                                <br>
+                                    <v-select label="name"  v-model="selectedLocality"
+                                              :on-search="getOptions"
+                                              :options="localityOptions"
+                                    >
+                                    </v-select>
+                                </div>
+                            </li>
+
+                            <li class="form_li">
+                                <div class="form-group">
+                                    <label for="roles"> Rolul: </label>
+                                    <select class="form-control" id="roles" name="roles">
+                                        <option value="admin">admin</option>
+                                        <option value="operator">operator</option>
+                                        <option value="operator-raion">operator_raion</option>
+                                    </select>
+                                </div>
+                            </li>
+
+                            <li class="form_li">
+                                <div class="form-group">
+                                    <label for="api_token"> Api Token: </label>
+                                    <input  class="form-control" name="api_token"  id="api_token" placeholder="Autogenerate">
+                                </div>
+                            </li>
+
+                            <li class="form_li">
+                                <div class="form-group">
+                                    <label>@mail </label>
+                                    <input class="form-control" name="email" name="email" id="email" placeholder="email">
+                                </div>
+                            </li>
+                            <li class="form_li">
+                                <div class="form-group">
+                                    <button class="submit" name="submit" > Salva </button>
+                                </div>
                             </li>
 
                         </ul>
