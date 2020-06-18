@@ -17,10 +17,10 @@ Route::group(['middleware' => 'auth'], function() {
 });
 
 Route::group(['middleware' => 'isAdmin'], function() {
-    Route::get('/insert',   'MainController@new_user');
-    Route::post('/insert',  'MainController@new_user');
+    Route::get( '/insert',  'MainController@new_user');
+    Route::post('/add_user',  'MainController@add_user');
     Route::get('/edit/{id}','MainController@get_user');
-    Route::put('/edit{id}', 'MainController@edit_user');
-    Route::delete('/delete/{id}','MainUser@edit_user');
+    Route::put('/edit/{id}', 'MainController@edit_user');
+    Route::get('/delete/{id}/','MainController@destroy');
 });
 

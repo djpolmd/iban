@@ -142,10 +142,8 @@ class ApiTokenController extends Controller
             }   // End MessageBag
 
             $iban = $request->get('iban');
-
             $codeco = substr($iban, 10, 6);
             $codlocal = substr($iban, 16, 4);
-
 
             if (Locality::all()->where('cod3', '=', $codlocal)->first() === null)
                 return response('Incorecta  selectat localitatea', 422);
@@ -360,7 +358,6 @@ class ApiTokenController extends Controller
             ->header('Content-Type', 'text/plain');
     }
 
-
     /**
      * @param Request $request
      * @param $iban_id
@@ -374,7 +371,6 @@ class ApiTokenController extends Controller
 
         return response('Iban a fost șters!' ,200)
                 ->header('Content-Type', 'text/plain');
-
        else
            return response('Iban - nu poate fi procesat!' ,422)
                 ->header('Content-Type', 'text/plain');

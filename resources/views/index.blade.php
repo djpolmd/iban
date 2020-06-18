@@ -8,7 +8,6 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
         <!-- Styles -->
         <style>
             html, body {
@@ -68,8 +67,8 @@
 
             <div class="content">
                 <div class="container-fluid">
-                    <a href="{{ url('admin/post_form') }}">Forma de Administrare </a><br>
-
+                    <a href="{{ url('admin/post_form') }}">Forma de Administrare </a>
+                <br>
                     Count users:
                     {{ $users->count() }}
                     <br>
@@ -86,7 +85,7 @@
                         </thead>
                     <tbody>
                     @if(Auth()->check())
-                            @php($isAdmin = Auth()->user()->getUserRole() == 'admin')
+                        @php($isAdmin = Auth()->user()->getUserRole() == 'admin')
                     @endif
                     @foreach( $users as $user )
                         <tr>
@@ -98,10 +97,13 @@
                             <td> {{  $user->getUserRole() }} </td>
                             <td> {{ $user->getUserRolePermissions() }} </td>
                             @if( isset($isAdmin))
-                                <td><a href="{{ url('/delete/') .'/'. $user->id }}" >"Delete" </a></td>
+                                @if($isAdmin)
+                                <td><a href="{{ url('/delete').'/'.$user->id.'/?token=' . Auth()->user()->getToken()}}">
+                                        "Delete" </a></td>
                                 <td><a href="{{ url('/edit/') .'/' . $user->id }}">"Edit - Put" </a> </td>
-                                <td><a href="{{ url('/insert?token='. $user->getToken())}}"> "Insert - Post"</a> </td>
-                            @endif
+                                <td><a href="{{ url('/insert'). '?token='. Auth()->user()->getToken() }}"> "Insert - Post"</a> </td>
+                                @endif
+                        @endif
                     @endforeach
                     </tbody>
                     </table>

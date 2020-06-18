@@ -52,7 +52,7 @@ class User extends Authenticatable
      */
     public function getUserRole()
     {
-        $user = RoleUsers::where('id',$this->id)->get('role_id');
+        $user = RoleUsers::where('user_id',$this->id)->get('role_id');
 
         if ($user)
             return
@@ -68,7 +68,7 @@ class User extends Authenticatable
      */
     public function getUserRolePermissions()
     {
-        $user = RoleUsers::where('id',$this->id)->get('role_id');
+        $user = RoleUsers::where('user_id', $this->id)->get('role_id');
         return  Roles::where('id', $user->pluck('role_id'))
                         ->get('role_permissions')
                         ->pluck('role_permissions')
@@ -97,7 +97,7 @@ class User extends Authenticatable
     }
 
     /**
-     *
+     * @return mixed | null
      */
     public function getToken()
     {

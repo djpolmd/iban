@@ -18,12 +18,9 @@ class RoleUsers extends Model
     ];
 
     /**
-     * @var array
+     * @var false
      */
-    protected $casts = [
-    'updated_at' => 'datatime',
-    ];
-
+    public $timestamps = false;
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */

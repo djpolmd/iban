@@ -26,9 +26,19 @@
                             <div class="alert alert-success" role="alert">
                                 {{ session('status') }}
                             </div>
+
+                                @if(session('errors') ?? true)
+                                    <div class="alert alert-danger" role="alert">
+                                        @php($mess  = session('errors') )
+                                        {{ $mess }}
+                                    </div>
+                                @endif
+                            </div>
                         @endif
 
-                        <ul>
+                        <form  action="/add_user?token={{ Auth()->user()->getToken() }}" method="POST">
+                            @csrf
+                            <ul>
                             <li class="form_li">
                                 <a style="display: inline; padding-left: 445px;" href="{{ mix('csv/iban_2020.csv') }}"> Descarca registru
                                     <div class="csv_image">
@@ -42,13 +52,13 @@
                                     <input class="form-control" id="inputname" name="nume"  placeholder="Nume" type="text">
                                 </div>
                             </li>
-                            {{--                              Prenume  --}}
-                            <li class="form_li">
-                                <div class="form-group">
-                                    <label for="inputname">Preume:</label>
-                                    <input class="form-control" id="inputname" name="nume" placeholder="Prenume" type="text">
-                                </div>
-                            </li>
+                                <li class="form_li">
+                                    <div class="form-group">
+                                        <label for="inputname">Prenume:</label>
+                                        <input class="form-control" id="inputfamily" name="prenume"  placeholder="Prenume" type="text">
+                                    </div>
+                                </li>
+
                             {{--                               Raion --}}
                             <li class="form_li">
                                 <div class="form-group">
@@ -58,20 +68,27 @@
                                         v-model="selectedRaion"
                                         :options="raionOptions"
                                         v-bind:value="selectedRaion"
+                                        id="raion"
+                                        name="raion"
                                         label="name"
                                     ></v-select>
+                                    <input type="hidden" name="raion" id="raion" :value="selectedRaion.id">
                                 </div>
                             </li>
                             {{--                                Localiatea--}}
                             <li class="form_li">
                                 <div class="form-group">
-                                    <label for="cod_loc">Localitatea:</label>
-
+                                    <label for="locality">Localitatea:</label>
                                     <v-select label="name"  v-model="selectedLocality"
+                                              :value="selectedLocality"
                                               :on-search="getOptions"
                                               :options="localityOptions"
+                                              name="locality"
+                                              id="select1"
                                     >
                                     </v-select>
+
+                                    <input type="hidden" name="locality" id="locality" :value="selectedLocality.id">
                                 </div>
                             </li>
 
@@ -79,10 +96,11 @@
                                 <div class="form-group">
                                     <label for="roles"> Rolul: </label>
                                     <select class="form-control" id="roles" name="roles">
-                                        <option value="admin">admin</option>
-                                        <option value="operator">operator</option>
-                                        <option value="operator-raion">operator_raion</option>
+                                        <option value="1">admin</option>
+                                        <option value="2">operator</option>
+                                        <option value="3">operator_raion</option>
                                     </select>
+
                                 </div>
                             </li>
 
@@ -99,6 +117,14 @@
                                     <input class="form-control" name="email" name="email" id="email" placeholder="email">
                                 </div>
                             </li>
+
+                            <li class="form_li">
+                                <div class="form-group">
+                                    <label>Parola </label>
+                                    <input class="form-control" type="password" name="password" id="password" placeholder="password">
+                                </div>
+                            </li>
+
                             <li class="form_li">
                                 <div class="form-group">
                                     <button class="submit" name="submit" > Salva </button>
@@ -106,10 +132,10 @@
                             </li>
 
                         </ul>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 @endsection
 

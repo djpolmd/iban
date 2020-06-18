@@ -83,4 +83,15 @@ class Locality extends Model
                  ->pluck('cod_raion')
                  ->first();
     }
+
+    /**
+     * @param $value
+     * @return mixed
+     */
+    public  function getbyCode($value)
+    {
+        return
+            Locality::where('cod_3','=', $value)->id;
+
+    }
 }

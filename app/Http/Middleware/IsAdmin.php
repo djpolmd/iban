@@ -37,10 +37,14 @@ class isAdmin
 
         $user = new User();
 
-        if($user->getUserId($token) == null)
-              return response('Wrong token.', 401);
+        $user_id = $user->getUserId($token);
 
-        $userRole = $user->where('id', $user->getUserId($token))->first()->getUserRole();
+        if($user_id == null) {
+            $user->delete();
+            return response('Wrong token.', 401);
+        }
+
+        $userRole = $user->where('id', $user_id)->first()->getUserRole();
 
         // Verificam daca utilizator este admin
 
@@ -58,11 +62,13 @@ class isAdmin
                 return
                     response('Unauthorized.', 401);
                 } else {
-                    return redirect()->back();
+                dd($isAdmin);
+                    return redirect()->back()->withErrors('Error',200);
                     //todo posibil sa nu lucreze linkul...
                 }
         }
 
+        $user->delete();
         return $next($request);
     }
 }

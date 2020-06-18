@@ -83,7 +83,8 @@
                             </li>
 
                             <div class="container4">
-                                <button v-on:click="getIban()" style="display: inline;display: block;margin-left: auto;margin-right: auto;"
+                                <button v-on:click="getIban()"
+                                        style="display: inline;display: block;margin-left: auto;margin-right: auto;"
                                         {{--  @click="checkIban()"--}}
                                         name="submit"
                                         class="submit"

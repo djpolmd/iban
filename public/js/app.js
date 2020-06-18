@@ -53221,6 +53221,7 @@ var app = new Vue({
     raionOptions: [],
     localityOptions: [],
     IbanOptions: [],
+    IbanResponce: [],
     ifVisible: false,
     alertBox: false
   },

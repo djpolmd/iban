@@ -23,6 +23,7 @@ Vue.use(VueSimpleAlert);
                 raionOptions: [],
                 localityOptions: [],
                 IbanOptions: [],
+                IbanResponce: [],
                 ifVisible: false,
                 alertBox: false,
             },
