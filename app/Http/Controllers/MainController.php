@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Iban;
 use App\Locality;
 use App\RoleUsers;
 use App\User;
@@ -31,8 +30,6 @@ class MainController extends Controller
      */
     public function iban(Request $request)
     {
-        $users = User::all();
-
         $token = Auth()->user()->getToken();
 
         JavaScript::put([
@@ -79,7 +76,7 @@ class MainController extends Controller
             'roles' => 'required',
             'password' => 'required',
         ]);
-        $errors1 = (string)'';
+
         if ($validator->fails()) {
             return back()->withInput()
                 ->withErrors($validator->getMessageBag());
@@ -119,5 +116,63 @@ class MainController extends Controller
 
             return response('User - cu acest id nu exista !'.  $url, 422)
             ->header('Content-Type', 'text/html');
+    }
+
+    public function edit_user(Request $request, $id)
+    {
+        $url = '<a href="' . url('/') . '"> Go back </a>';
+
+        if ($user = User::find($id)) {
+            $role = RoleUsers::where('user_id', $id);
+        }
+        return response('User - nu poate fi procesat!' . $url, 422)
+            ->header('Content-Type', 'text/html');
+
+        $validator = Validator::make($request->all(), [
+            'email' => ['required',
+                'email',
+                'unique:users'],
+            'nume' => 'required',
+            'prenume' => 'required',
+            'locality' => 'required',
+            'roles' => 'required',
+            'password' => 'required',
+        ]);
+
+        if ($validator->fails())
+        {
+            return back()->withInput()
+                ->withErrors($validator->getMessageBag());
+        }
+
+        $user->nume = $request->get('nume');
+        $user->locality_id = Locality::where('cod3', '=', $request->get('locality'))->pluck('id')->first();
+        $user->api_token = Str::random(60);
+        $user->email = $request->get('email');
+        $user->password = bcrypt($request->get('password'));
+        $user->prenume = $request->get('prenume');
+        $user->save();
+
+        $role_users = $role;
+        $role_users->user_id = $new_user->id;
+        $role_users->role_id = $request->get('roles');
+        $role_users->updated_by = Auth()->user()->getAuthIdentifier();
+        $role_users->save();
+    }
+
+    public function get_user(Request $request, $id)
+    {
+        $user = User::find($id);
+        $role = $user->getUserRole();
+
+        return view('users')
+            ->withNume($user->nume)
+            ->withPrenume($user->prenume)
+            ->withLocality($user->locality)
+            ->withApi_token($user->api_token)
+            ->withEmail($user->email)
+            ->withPassword($user->password)
+            ->withUserid($user->id)
+            ->withRoleid($role);
     }
 }

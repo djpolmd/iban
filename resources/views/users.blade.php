@@ -18,7 +18,7 @@
                     @else
                         {{ session()->put('status', 'Nu aveti permisiune sa acessati forma!!!') }}
 
-                        <a href="{{ url('login') }}"> Please log-in </a>
+                        <a href="{{ url('login') }}">       Please log-in </a>
                         <a href="{{ url('register') }}"> or  Please register </a>
                     @endif
                     <div class="card-body">
@@ -30,13 +30,21 @@
                                 @if(session('errors') ?? true)
                                     <div class="alert alert-danger" role="alert">
                                         @php($mess  = session('errors') )
-                                        {{ $mess }}
+                                            {{ $mess }}
                                     </div>
                                 @endif
                             </div>
                         @endif
 
-                        <form  action="/add_user?token={{ Auth()->user()->getToken() }}" method="POST">
+                        <form
+                           @if(isset($password))
+                                action="/edit_user?token={{ Auth()->user()->getToken() }}"
+                                method="PUT"
+                           @else
+                                action="/add_user?token={{ Auth()->user()->getToken() }}"
+                                method="POST"
+                           @endif
+                        >
                             @csrf
                             <ul>
                             <li class="form_li">
@@ -49,13 +57,15 @@
                             <li class="form_li">
                                 <div class="form-group">
                                     <label for="inputname">Nume:</label>
-                                    <input class="form-control" id="inputname" name="nume"  placeholder="Nume" type="text">
+                                    <input @if(isset($nume)) value="{{ $nume }}" @endif
+                                        class="form-control" id="inputname" name="nume"  placeholder="Nume" type="text">
                                 </div>
                             </li>
                                 <li class="form_li">
                                     <div class="form-group">
                                         <label for="inputname">Prenume:</label>
-                                        <input class="form-control" id="inputfamily" name="prenume"  placeholder="Prenume" type="text">
+                                        <input @if(isset($prenume)) value="{{ $prenume }}" @endif
+                                            class="form-control" id="inputfamily" name="prenume"  placeholder="Prenume" type="text">
                                     </div>
                                 </li>
 
@@ -72,7 +82,9 @@
                                         name="raion"
                                         label="name"
                                     ></v-select>
-                                    <input type="hidden" name="raion" id="raion" :value="selectedRaion.id">
+                                    <input type="hidden" name="raion" id="raion"
+                                           :value="selectedRaion.id"
+                                    >
                                 </div>
                             </li>
                             {{--                                Localiatea--}}
@@ -80,6 +92,8 @@
                                 <div class="form-group">
                                     <label for="locality">Localitatea:</label>
                                     <v-select label="name"  v-model="selectedLocality"
+
+                                              @if(isset($locality)) :value="{{ $locality }}" @endif
                                               :value="selectedLocality"
                                               :on-search="getOptions"
                                               :options="localityOptions"
@@ -107,24 +121,27 @@
                             <li class="form_li">
                                 <div class="form-group">
                                     <label for="api_token"> Api Token: </label>
-                                    <input  class="form-control" name="api_token"  id="api_token" placeholder="Autogenerate">
+                                    <input @if(isset($api_token)) value="{{ $api_token }}" @endif
+                                        class="form-control" name="api_token"  id="api_token" placeholder="Autogenerate">
                                 </div>
                             </li>
 
                             <li class="form_li">
                                 <div class="form-group">
                                     <label>@mail </label>
-                                    <input class="form-control" name="email" name="email" id="email" placeholder="email">
+                                    <input  @if(isset($email)) value="{{$email}}" @endif
+                                        class="form-control" name="email" name="email" id="email" placeholder="email">
                                 </div>
                             </li>
-
+                        @if(!isset($password))
                             <li class="form_li">
                                 <div class="form-group">
                                     <label>Parola </label>
-                                    <input class="form-control" type="password" name="password" id="password" placeholder="password">
+                                    <input @if(isset($password)) value="{{ $password }}" @endif
+                                        class="form-control" type="password" name="password" id="password" placeholder="password">
                                 </div>
                             </li>
-
+                        @endif
                             <li class="form_li">
                                 <div class="form-group">
                                     <button class="submit" name="submit" > Salva </button>
