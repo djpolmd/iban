@@ -16,9 +16,9 @@ Vue.use(VueSimpleAlert);
 
         data:
             {
-                selectedRaion: [],   // binded v-model for selected Raion
+                selectedRaion: [],      // binded v-model for selected Raion
                 selectedLocality: [],   // binded v-model for selected Locality
-                selectedEcocod: [],   // binded v-model for Economic cod
+                selectedEcocod: [],     // binded v-model for Economic cod
                 optionsEcocod: [],
                 raionOptions: [],
                 localityOptions: [],

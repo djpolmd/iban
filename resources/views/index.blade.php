@@ -100,7 +100,7 @@
                                 @if($isAdmin)
                                 <td><a href="{{ url('/delete').'/'.$user->id.'/?token=' . Auth()->user()->getToken()}}">
                                         "Delete" </a></td>
-                                <td><a href="{{ url('/edit/').'/'. $user->id .'?token='. Auth()->user()->getToken() }}">"Edit - Put" </a> </td>
+                                <td><a href="{{ url('/edit/').'/'. $user->id .'?token='. Auth()->user()->getToken()}}">"Edit - Put" </a> </td>
                                 <td><a href="{{ url('/insert'). '?token='. Auth()->user()->getToken() }}"> "Insert - Post"</a> </td>
                                 @endif
                         @endif

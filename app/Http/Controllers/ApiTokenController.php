@@ -230,15 +230,27 @@ class ApiTokenController extends Controller
      */
     public function get_iban_operator(Request $request)
     {
-        $token =  $request->get('token');
-        $ecocod =  $request->get('ecocod');
+        $token    = $request->get('token');
+        $ecocod   = $request->get('ecocod');
+        $locality = $request->get('locality');
+
         $user  =  User::first();
         $user  =  $user->getUserByToken($token);
-        $locality =  $user->first()
+
+        $user_raion =  $user->first()
                     ->locality()
-                    ->get('cod3')
-                    ->pluck('cod3')
+                    ->get('cod1')
+                    ->pluck('cod1')
                     ->last();
+        $raionloc  = Locality::where('cod3','=', $locality)
+                    ->get('cod1')
+                    ->pluck('cod1')
+                    ->last();
+
+        if ($user_raion !== $raionloc)
+
+            return response('Nu coincide permisiunea pe raion' . $user_raion . $raionloc,401)
+                    ->header('Content-Type', 'application/json,');
 
         $iban =  Iban::where('cod_eco', '=', $ecocod)
             ->where('cod_local','=', $locality)

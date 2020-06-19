@@ -27,7 +27,7 @@
                                 {{ session('status') }}
                             </div>
 
-                                @if(session('errors') ?? true)
+                                @if(session('errors'))
                                     <div class="alert alert-danger" role="alert">
                                         @php($mess  = session('errors') )
                                             {{ $mess }}
@@ -38,7 +38,7 @@
 
                         <form
                            @if(isset($password))
-                                action="/edit_user?token={{ Auth()->user()->getToken() }}"
+                                action="/edit?token={{ Auth()->user()->getToken() }}"
                                 method="PUT"
                            @else
                                 action="/add_user?token={{ Auth()->user()->getToken() }}"

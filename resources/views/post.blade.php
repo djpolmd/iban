@@ -13,6 +13,7 @@
                             {{ Auth()->user()->getUserRole()  }}
                             <br> Permisiuni : &ensp;
                             {{ Auth()->user()->getUserRolePermissions() }}
+                            <a href="{{url('/')}}"><br> Spre -> Lista utilizatorilor  </a>
                             {{ session()->put('status', 'Bine ati venit ' . $username .  '  !!!') }}
                     </div>
                     @else
